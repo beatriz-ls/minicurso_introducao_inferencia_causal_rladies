@@ -1,0 +1,48 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    code-link: true
+    highlight-style: a11y
+    chalkboard: true
+    # self-contained: true
+    # scrollable: true
+    theme: "bea_slide_theme.scss"
+---
+
+##  {#hierarquia data-menu-title="Hierarquia de informação"}
+
+[Hierarquia da Informação]{.slide-title}
+
+<hr>
+
+
+::: red-text
+1. Raciocínio Associativo
+:::
+**Método:** Redes Bayesianas
+
+**Pergunta que responde:**
+*"O que eu sei sobre os dados?"*
+
+**Objetivo:** Identificar padrões e dependências estatísticas nos dados observados.
+
+::: red-text
+2. Raciocínio Intervencional
+:::
+**Método:** Redes Causais Bayesianas
+
+**Pergunta que responde:**
+*"O que acontece se eu intervir no sistema?"*
+
+**Objetivo:** Estimar os efeitos de intervenções (do tipo do(X = x)) no sistema.
+
+::: red-text
+3. Raciocínio Contrafactual
+:::
+**Método:** Modelos Causais Estruturais
+
+**Pergunta que responde:**
+*"O que teria acontecido se...?"*
+
+**Objetivo:** Analisar cenários hipotéticos passados não observados.

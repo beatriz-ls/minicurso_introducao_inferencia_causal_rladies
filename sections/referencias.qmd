@@ -1,0 +1,23 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    code-link: true
+    highlight-style: a11y
+    chalkboard: true
+    # self-contained: true
+    # scrollable: true
+    theme: "bea_slide_theme.scss"
+---
+
+##  {#referencias data-menu-title="Referências"}
+
+[Referências]{.slide-title}
+
+<hr>
+
+**_STERN, R. B._** *Causality Book*. [S.l.]: GitHub, 2024. Disponível em: <https://github.com/rbstern/causality_book/blob/master/book.pdf>. Acesso em: 25 maio 2025.
+
+
+**_PEARL, Judea; GLYMOUR, Madelyn; JEWELL, Nicholas P._** *Causal inference in statistics: a primer*. Chichester: Wiley, 2016.
+

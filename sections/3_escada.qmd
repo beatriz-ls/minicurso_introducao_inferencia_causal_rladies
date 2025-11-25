@@ -1,0 +1,19 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    code-link: true
+    highlight-style: a11y
+    chalkboard: true
+    # self-contained: true
+    # scrollable: true
+    theme: "bea_slide_theme.scss"
+---
+
+##  {#escada data-menu-title="Escada da Causalidade"}
+
+[Escada da Causalidade]{.slide-title}
+
+<hr>
+
+![](img/escada.png)

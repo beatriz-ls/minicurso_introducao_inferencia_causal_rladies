@@ -1,0 +1,44 @@
+---
+format:
+  revealjs:
+    slide-number: true
+    show-slide-number: print
+    theme: "bea_slide_theme.scss"
+    menu:
+      side: right
+      width: wide
+---
+
+##  {.title background-image="img/profile.jpeg" background-size="35%" background-position="left 10% center" background-color="#FAF0F2"}
+
+::::: {.columns}
+::: {.column width="60%" style="margin-left: 40%;"}
+
+::: {.custom-subtitle style="color: #355070;"}
+APRENDIZADO CAUSAL
+:::
+
+::: {.custom-subtitle2}
+Um guia inicial
+:::
+
+<br>
+
+::: {.body-text-m}
+Sobre mim
+:::
+
+- Meu nome é **Beatriz Lima Silveira**  
+- Estudante da **UFES** e membro **R-Ladies Vitória**  
+- Integrante do **DaSLab**  
+- GitHub: <https://github.com/beatriz-ls>  
+- LinkedIn: <https://www.linkedin.com/in/beatriz-ls/>
+
+:::
+::: {.column width="0%"}
+:::
+:::::
+
+::: footer
+Slides disponíveis em **GitHub**
+:::

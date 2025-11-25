@@ -1,0 +1,144 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    code-link: true
+    highlight-style: a11y
+    chalkboard: true
+    # self-contained: true
+    # scrollable: true
+    theme: "bea_slide_theme.scss"
+---
+
+##  {#intervencoes data-menu-title="Entendendo Intervenções"}
+
+[Entendendo Intervenções]{.slide-title}
+
+[O Paradoxo de Simpson: Cenário 1 (Z = Sexo)]{.custom-subtitle2}
+
+<hr>
+
+::: columns
+::: {.column width="50%"}
+::: panel-tabset
+### Output
+
+```{r dag exemplo img, fig.width=5, fig.height=4, fig.align='center', echo=FALSE, message=FALSE, warning=FALSE}
+library(dagitty)
+library(ggdag)
+library(ggplot2)
+
+# Construindo o grafo
+grafo <- dagitty("dag {
+T -> C
+Z -> C
+Z -> T
+}")
+# Exibir a figura do grafo
+ggdag(grafo, layout = "circle") +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  xlab("") + ylab("")
+
+```
+
+### Código
+
+```{r dag chain code,echo = TRUE, fig.show='hide', message=FALSE, warning=FALSE}
+library(dagitty)
+library(ggdag)
+library(ggplot2)
+
+# Construindo o Grafo
+grafo <- dagitty("dag {
+T -> C
+Z -> C
+Z -> T
+}")
+# Exibir a figura do grafo
+ggdag(grafo, layout = "circle") +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  xlab("") + ylab("")
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: sanchez-font
+::: red-text
+Observações
+:::
+:::
+
+::: hr-red
+:::
+
+-   Z é uma causa tanto de T quanto de C;
+
+-   T é uma causa de C
+:::
+:::
+
+------------------------------------------------------------------------
+
+[Entendendo Intervenções]{.slide-title}
+
+[Observação vs Intervenção]{.custom-subtitle2}
+
+<hr>
+
+::: sanchez-font
+::: red-text
+Qual é a probabilidade de que um indivíduo selecionado aleatoriamente da população se cure dado que **observamos** que recebeu o tratamento?
+:::
+:::
+
+::: body-text-s
+-   Corresponde: $f(C \mid T)$
+
+-   Capta:
+
+    -   Efeito direto: $C \rightarrow T$;
+    -   Efeito indireto via **Z** (Confundidor);
+
+-   Calculando:
+
+$$
+\begin{equation}
+\begin{aligned}
+f(c|t) &= \sum_{z} f(z, c|t) \\
+&= \sum_{z} \frac{f(z, c, t)}{f(z)} \\
+&= \sum_{z} \frac{f(z, c)f(c|z, t)}{f(t)} \\
+&= \sum_{z} f(z|t)f(c|z, t)
+\end{aligned}
+\end{equation}
+$$
+:::
+
+------------------------------------------------------------------------
+
+[Entendendo Intervenções]{.slide-title}
+
+[Observação vs Intervenção]{.custom-subtitle2}
+
+<hr>
+
+::: sanchez-font
+::: red-text
+Qual a probabilidade de que um indivíduo selecionado aleatoriamente da população se cure dado que **prescrevemos** a ele o tratamento?
+:::
+:::
+
+
+-   Ignora: $Z \rightarrow T$
+-   Calculando:
+
+$$
+f(c \mid do(t)) = \sum_{z} f(z) f(c \mid z, t)
+$$
+

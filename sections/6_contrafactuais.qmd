@@ -1,0 +1,116 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    code-link: true
+    highlight-style: a11y
+    chalkboard: true
+    # self-contained: true
+    # scrollable: true
+    theme: "bea_slide_theme.scss"
+---
+
+##  {#contrafactuais data-menu-title="Contrafactuais"}
+
+[Introduzindo Contrafactuais]{.slide-title}
+
+[Indagações Contrafactuais]{.custom-subtitle2}
+
+<hr>
+
+::: columns
+::: {.column width="50%"}
+::: panel-tabset
+### Output
+
+```{r dag contrafactuais img, fig.width=5, fig.height=4, fig.align='center', echo=FALSE, message=FALSE, warning=FALSE}
+library(dagitty)
+library(ggdag)
+library(ggplot2)
+
+# Construindo o grafo
+grafo <- dagitty("dag {
+T -> C
+Z -> C
+Z -> T
+}")
+# Exibir a figura do grafo
+ggdag(grafo, layout = "circle") +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  xlab("") + ylab("")
+
+```
+
+### Código
+
+```{r dag contrafactuais code,echo = TRUE, fig.show='hide', message=FALSE, warning=FALSE}
+library(dagitty)
+library(ggdag)
+library(ggplot2)
+
+# Construindo o Grafo
+grafo <- dagitty("dag {
+T -> C
+Z -> C
+Z -> T
+}")
+# Exibir a figura do grafo
+ggdag(grafo, layout = "circle") +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  xlab("") + ylab("")
+```
+:::
+:::
+
+::: {.column width="50%"}
+
+::: vertical-center
+
+::: sanchez-font
+::: red-text
+Entre as pessoas tratadas e curadas, seria mais comum curar ou não curar caso elas não tivessem sido tratadas?
+:::
+:::
+
+:::
+
+:::
+
+:::
+
+
+---
+
+
+##  {#contrafactuais data-menu-title="Contrafactuais"}
+
+[Introduzindo Contrafactuais]{.slide-title}
+
+[Raciocinio Contrafactual vs Raciocinio Intervencional ]{.custom-subtitle2}
+
+<hr>
+
+::: vertical-center
+
+::: sanchez-font
+Contrafactual:
+
+::: red-text
+Entre as pessoas tratadas e curadas, seria mais comum curar ou não curar caso elas não tivessem sido tratadas?
+:::
+
+Intervenção:
+
+::: red-text
+Entre pessoas tratadas, seria mais comum curar ou não curar?
+:::
+
+:::
+
+:::

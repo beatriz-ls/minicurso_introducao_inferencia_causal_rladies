@@ -1,0 +1,77 @@
+---
+format:
+  revealjs:
+    slide-number: true
+    show-slide-number: print
+    theme: "bea_slide_theme.scss"
+    menu:
+      side: right
+      width: wide
+---
+
+##  {#title-slide data-menu-title="Title Slide" background="#355070"}
+
+[Aprendizado Causal]{.custom-title}
+
+[*Um Guia inicial*]{.custom-subtitle}
+
+<hr style="border: 1px solid #d2e3f3;">
+
+::: columns
+::: {.column width="50%"}
+[Beatriz Lima Silveira]{.custom-subtitle3}<br>
+
+:::
+
+::: {.column width="50%"}
+[R-Ladies+ Vitória]{.custom-subtitle3}<br>
+[Universidade Federal do Espiríto Santo]{.custom-subtitle3}<br>
+[Laboratório de Data Science (DaSLab)]{.custom-subtitle3}
+:::
+:::
+
+<br>
+
+::: title-footer
+Slides disponíveis em [GitHub](https://github.com/beatriz-ls/causality_introduction)
+:::
+
+------------------------------------------------------------------------
+
+{{< include sections/0_apresentacao.qmd >}}
+
+------------------------------------------------------------------------
+
+{{< include sections/1_topicos.qmd >}}
+
+------------------------------------------------------------------------
+
+{{< include sections/2_porque_estudar.qmd >}}
+
+------------------------------------------------------------------------
+
+{{< include sections/3_escada.qmd >}}
+
+------------------------------------------------------------------------
+
+{{< include sections/4_modelo.qmd >}}
+
+------------------------------------------------------------------------
+
+{{< include sections/5_intervencoes.qmd >}}
+
+------------------------------------------------------------------------
+
+{{< include sections/6_contrafactuais.qmd >}}
+
+------------------------------------------------------------------------
+
+{{< include sections/7_hierarquia.qmd >}}
+
+------------------------------------------------------------------------
+
+{{< include sections/materiais.qmd >}}
+
+------------------------------------------------------------------------
+
+{{< include sections/referencias.qmd >}}

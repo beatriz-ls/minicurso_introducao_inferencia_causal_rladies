@@ -1,0 +1,347 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    code-link: true
+    highlight-style: a11y
+    chalkboard: true
+    # self-contained: true
+    # scrollable: true
+    theme: "bea_slide_theme.scss"
+---
+
+##  {#modelo-causal data-menu-title="O Modelo Causal"}
+
+[O Modelo Causal]{.slide-title}
+
+<hr>
+
+::: sanchez-font
+::: purple-text
+**Definimos**
+:::
+:::
+
+Determinar relações causais entre variáveis é essencial para determinar efeito de uma variável em outra.
+
+::: sanchez-font
+::: purple-text
+**Desafio**
+:::
+:::
+
+Representar essas relações formalmente (matemáticamente)
+
+::: sanchez-font
+::: purple-text
+**Resposta**
+:::
+:::
+
+Definir um Modelo Causal, definido por meio de **Modelos Probabilisticos em Grafos**
+
+------------------------------------------------------------------------
+
+##  {data-menu-title="O Modelo Causal"}
+
+[O Modelo Causal]{.slide-title}
+
+[Grafo Direcionado Acíclico (DAG)]{.custom-subtitle2}
+
+<hr>
+
+::: body-text-s
+::: sanchez-font
+::: red-text
+Definição
+:::
+:::
+
+Um DAG é um grafo direcionado tal que, para todo vértice, **V** , não é possível seguir setas partindo de **V** e voltar para **V**.
+
+-   Representação causal: $V_1 \rightarrow V_2$ = "$V_1$ causa $V_2$"
+
+::: sanchez-font
+::: red-text
+Lema
+:::
+:::
+
+O conjunto de pais de $\mathcal{V} \subseteq V$ em um DAG, $G = (V, \mathcal{E})$, é:
+$$
+Pa(\mathcal{V}) := \{V^* \in V : \exists V \in \mathcal{V} \text{ tal que } (V^*, V) \in \mathcal{E}\}
+$$
+
+::: sanchez-font
+::: red-text
+Lema
+:::
+:::
+
+Em um DAG, $G = (V, E)$, o conjunto de ancestrais de $\mathcal{V} \subseteq V$, $\operatorname{Anc}(\mathcal{V})$, é tal que: 
+$$
+\operatorname{Anc}(\mathcal{V}) \subseteq V \quad \text{e} \quad V^* \in \operatorname{Anc}(\mathcal{V}) \text{ se e somente se}
+$$
+
+$$
+\exists V \in \mathcal{V} \text{ e um caminho direcionado } C \text{ tal que } C_1 = V^* \text{ e } C_i = V.
+$$
+:::
+
+------------------------------------------------------------------------
+
+[O Modelo Causal]{.slide-title}
+
+[Modelo Probabilístico em um DAG]{.custom-subtitle2}
+
+<hr>
+
+::: sanchez-font
+::: red-text
+Definição
+:::
+:::
+
+Para $\mathcal{V}$ um conjunto de variáveis aleatórias, dizemos que uma função de densidade sobre $\mathcal{V}$, $f$, é compatível com um DAG, $\mathcal{G}$, se:
+
+$$
+f(v_1,\ldots,v_n) = \prod_{i=1}^n f(v_i \mid \mathrm{Pa}(v_i))
+$$
+
+::: sanchez-font
+::: red-text
+Lema
+:::
+:::
+
+Uma função de densidade $f$ é compatível com um DAG $\mathcal{G}$ se e somente se existem funções $g_1, \dots, g_n$ tais que:
+
+$$
+f(v_1, \dots, v_n) = \prod_{i=1}^{n} g_i(v_i, \mathrm{Pa}(v_i)), \quad \text{e}
+$$
+
+$$
+\int g_i(v_i, \mathrm{Pa}(v_i)) \, dv_i = 1 \quad \forall i
+$$
+
+------------------------------------------------------------------------
+
+[O Modelo Causal]{.slide-title}
+
+[Cadeia (Chain)]{.custom-subtitle2}
+
+<hr>
+
+::: columns
+::: {.column width="50%"}
+::: panel-tabset
+### Output
+
+```{r dag chain img, fig.width=5, fig.height=4, fig.align='center', echo=FALSE, message=FALSE, warning=FALSE}
+library(dagitty)
+library(ggdag)
+library(ggplot2)
+
+# Construindo o grafo
+grafo <- dagitty("dag {
+V1 -> V2
+V2 -> V3
+}")
+# Exibir a figura do grafo
+ggdag(grafo, layout = "circle") +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  xlab("") + ylab("")
+
+```
+
+### Código
+
+```{r dag exemplo code,echo = TRUE, fig.show='hide', message=FALSE, warning=FALSE}
+library(dagitty)
+library(ggdag)
+library(ggplot2)
+
+# Construindo o Grafo
+grafo <- dagitty("dag {
+V1 -> V2
+V2 -> V3
+}")
+# Exibir a figura do grafo
+ggdag(grafo, layout = "circle") +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  xlab("") + ylab("")
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: sanchez-font
+::: red-text
+Observações
+:::
+:::
+
+::: hr-red
+:::
+
+-   $V_1$ é causa de $V_2$ que, por sua vez, é causa de $V_3$. Assim, $V_1$ é ancestral de $V_3$, isto é, o primeiro é a causa indireta do segundo;
+
+-   $V_1$ e $V_3$ estão correlacionados, via $V_2$, na população;
+
+-   $V_1$ e $V_3$ são independentes quando condicionados em $V_2$
+:::
+:::
+
+------------------------------------------------------------------------
+
+[O Modelo Causal]{.slide-title}
+
+[Confundidor (Confounder)]{.custom-subtitle2}
+
+<hr>
+
+::: columns
+::: {.column width="50%"}
+::: panel-tabset
+### Output
+
+```{r dag confounder, fig.width=5, fig.height=4, fig.align='center', echo=FALSE, message=FALSE, warning=FALSE}
+library(dagitty)
+library(ggdag)
+library(ggplot2)
+
+# Construindo o grafo
+grafo <- dagitty("dag {
+V1 -> V2
+V1 -> V3
+}")
+# Exibir a figura do grafo
+ggdag(grafo, layout = "circle") +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  xlab("") + ylab("")
+
+```
+
+### Código
+
+```{r dag confounder img,echo = TRUE, fig.show='hide', message=FALSE, warning=FALSE}
+library(dagitty)
+library(ggdag)
+library(ggplot2)
+
+# Construindo o Grafo
+grafo <- dagitty("dag {
+V1 -> V2
+V1 -> V3
+}")
+# Exibir a figura do grafo
+ggdag(grafo, layout = "circle") +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  xlab("") + ylab("")
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: sanchez-font
+::: red-text
+Observações
+:::
+:::
+
+::: hr-red
+:::
+
+-   $V_1$ é uma causa comum a $V_2$ e a $V_3$;
+
+-   $V_2$ e $V_3$ estão correlacionados, via $V_1$, na população;
+
+-   $V_2$ e $V_3$ são independentes quando condicionados em $V_1$.
+:::
+:::
+
+------------------------------------------------------------------------
+
+[O Modelo Causal]{.slide-title}
+
+[Colisor (Collider)]{.custom-subtitle2}
+
+<hr>
+
+::: columns
+::: {.column width="50%"}
+::: panel-tabset
+### Output
+
+```{r dag colisor img, fig.width=5, fig.height=4, fig.align='center', echo=FALSE, message=FALSE, warning=FALSE}
+library(dagitty)
+library(ggdag)
+library(ggplot2)
+
+# Construindo o grafo
+grafo <- dagitty("dag {
+V1 -> V2
+V3 -> V2
+}")
+# Exibir a figura do grafo
+ggdag(grafo, layout = "circle") +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  xlab("") + ylab("")
+
+```
+
+### Código
+
+```{r dag colisor code,echo = TRUE, fig.show='hide', message=FALSE, warning=FALSE}
+library(dagitty)
+library(ggdag)
+library(ggplot2)
+
+# Construindo o Grafo
+grafo <- dagitty("dag {
+V1 -> V2
+V3 -> V2
+}")
+# Exibir a figura do grafo
+ggdag(grafo, layout = "circle") +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  xlab("") + ylab("")
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: sanchez-font
+::: red-text
+Observações
+:::
+:::
+
+::: hr-red
+:::
+
+-   $V_1$ e $V_3$ são causas comum a $V_2$;
+
+-   $V_1$ e $V_3$ são independentes na população;
+
+-   $V_1$ e $V_3$ estão correlacionados quando condicionados em $V_2$.
+:::
+:::

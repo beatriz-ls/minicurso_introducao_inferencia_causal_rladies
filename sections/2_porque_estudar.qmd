@@ -1,0 +1,172 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    code-link: true
+    highlight-style: a11y
+    chalkboard: true
+    # self-contained: true
+    # scrollable: true
+    theme: "bea_slide_theme.scss"
+---
+  
+##  {#porque-estudar data-menu-title="Porque estudar Inferência Causal?"}
+  
+[Porque estudar Inferência Causal?]{.slide-title}
+
+[O Paradoxo de Simpson]{.custom-subtitle2}
+
+<hr>
+  
+Observamos em 700 pacientes três variáveis binárias:
+  
+-   $T$: recebeu tratamento
+-   $C$: curou
+-   $Z$: variável binária que será definida depois
+
+A tabela abaixo resume os dados:
+  
+```{r simpson, warning=FALSE, message=FALSE, echo = FALSE}
+library(tidyverse)
+library(knitr)
+
+# Construindo a base de dados
+data <- c(
+  rep(c(0,1,1), 81),
+  rep(c(0,1,0), 6),
+  rep(c(0,0,1), 234),
+  rep(c(0,0,0), 36),
+  rep(c(1,1,1), 192),
+  rep(c(1,1,0), 71),
+  rep(c(1,0,1), 55),
+  rep(c(1,0,0), 25)
+)
+
+dt <- matrix(data, ncol = 3, byrow = TRUE) %>%
+  as_tibble() %>%
+  setNames(c("Z", "T", "C"))
+
+# Contingência
+tbl <- dt %>%
+  count(Z, T, C) %>%
+  pivot_wider(names_from = C, values_from = n, values_fill = 0) %>%
+  rename("Não Curou (C=0)" = `0`, "Curou (C=1)" = `1`)
+
+# Exibindo como tabela
+kable(tbl, caption = "Frequência conjunta das variáveis $Z$, $T$ e $C$")
+```
+
+------------------------------------------------------------------------
+  
+[Porque estudar Inferência Causal?]{.slide-title}
+
+[O Paradoxo de Simpson]{.custom-subtitle2}
+
+<hr>
+  
+::: sanchez-font
+::: red-text
+Análise Estratificada
+:::
+:::
+  
+::: columns
+::: column
+::: body-text-s
+-   Para $Z = 0$: $$ P(C=1 | T=1, Z=0) \approx \frac{81}{87} \approx 0.93 $$ $$ P(C=1 | T=0, Z=0) \approx \frac{234}{270} \approx 0.87 $$
+-   Para $Z = 1$: $$ P(C=1 | T=1, Z=1) \approx \frac{192}{263} \approx 0.73 $$ $$ P(C=1 | T=0, Z=1) \approx \frac{55}{80} \approx 0.69 $$
+:::
+:::
+  
+::: column
+::: {.callout-important title="Conclusão"}
+Para todos valores de **Z**, a taxa de recuperação é maior dentre aqueles que receberam tratamento do que sem ele.
+
+Podemos afirmar que tratamento é efetivo na recuperação do paciente?
+:::
+:::
+:::
+  
+------------------------------------------------------------------------
+  
+[Porque estudar Inferência Causal?]{.slide-title}
+
+[O Paradoxo de Simpson]{.custom-subtitle2}
+
+<hr>
+  
+::: sanchez-font
+::: red-text
+Análise Agregada
+:::
+:::
+  
+::: columns
+::: column
+::: body-text-s
+-   Tratamento:
+  
+$$P(C = 1 \mid T = 1) = \frac{81 + 192}{6 + 81 + 192 + 71} \approx 0{,}78$$
+  
+-   Sem Tratamento:
+  
+$$P(C = 1 \mid T = 0) = \frac{234 + 55}{36 + 234 + 25 + 55} \approx 0{,}83$$
+:::
+:::
+  
+::: column
+::: {.callout-important title="Conclusão"}
+Sem estratificar por $Z$, a frequência de recuperação é maior entre aqueles que não receberam o tratamento do que dentre aqueles que o receberam.
+:::
+:::
+:::
+  
+------------------------------------------------------------------------
+  
+[Porque estudar Inferência Causal?]{.slide-title}
+
+[O Paradoxo de Simpson]{.custom-subtitle2}
+
+<hr>
+  
+::: sanchez-font
+::: red-text
+Conflito nas Conclusões
+:::
+:::
+  
+::: body-text-s
+::: columns
+::: column
+[Cenário 1:]{.purple-text} **Z** = Sexo
+
+*Z*: Indicadora de que o paciente é homem
+
+- Observação: Mais homens receberam o tratamento
+
+- Comparação agregada: Homens tratados × Mulheres não tratadas
+
+- Pode se assumir que, independente do tratamento, mulheres têm maior chance de recuperação.
+
+- Taxa de recuperação menor no grupo tratado é explicada pelo sexo
+
+📌 Conclusão: Tratamento parece efetivo quando estratificamos por sexo.
+:::
+  
+::: column
+[Cenário 2:]{.purple-text} **Z** = Pressão Alta
+
+-   Z: Indicadora de que o paciente tem pressão elevada
+
+-   Sabemos que: Tratamento aumenta a pressão como efeito colateral
+
+-   Mais pacientes com pressão alta estão no grupo tratado
+
+-   Comparações dentro dos grupos de pressão: Tratamento parece benéfico porque não há como captar o efeito colateral dentro de cada grupo. Só é captado o pequeno efeito positivo.
+
+- Análise agregada: Frequência de recuperação é maior sem tratamento
+
+📌 Conclusão: Tratamento parece ineficiente devido ao efeito colateral.
+:::
+:::
+:::

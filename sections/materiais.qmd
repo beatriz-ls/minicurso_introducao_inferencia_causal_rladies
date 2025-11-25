@@ -1,0 +1,37 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    code-link: true
+    highlight-style: a11y
+    chalkboard: true
+    # self-contained: true
+    # scrollable: true
+    theme: "bea_slide_theme.scss"
+---
+
+##  {#materias data-menu-title="Materiais"}
+
+[Materiais]{.slide-title}
+
+<hr>
+
+::: columns
+::: {.column width="50%"}
+![](img\book_of_why.jpg){width="70%"}
+:::
+
+::: {.column width="50%"}
+![](img\causal_book.jpg){width="70%"}
+:::
+:::
+
+------------------------------------------------------------------------
+
+[Materiais]{.slide-title}
+
+<hr>
+
+![](img\causal_inference_in_r.png){width="70%"}
+
+[Link](https://www.r-causal.org/)

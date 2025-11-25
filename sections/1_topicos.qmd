@@ -1,0 +1,28 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    code-link: true
+    highlight-style: a11y
+    chalkboard: true
+    # self-contained: true
+    # scrollable: true
+    theme: "bea_slide_theme.scss"
+---
+
+##  {#topicos data-menu-title="Tópicos"}
+
+[Tópicos]{.slide-title}
+
+<hr>
+
+::: body-text-m
+-   Porque estudar Inferência Causal?
+-   A Escada da Causalidade
+-   O Modelo Causal
+-   Entendendo Intervenções
+-   Entendendo Contrafactuais
+-   Hierarquia da informação
+-   Materiais de estudo notórios
+-   Referências
+:::
