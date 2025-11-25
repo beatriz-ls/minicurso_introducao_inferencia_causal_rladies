@@ -33,7 +33,7 @@ format:
 <br>
 
 ::: title-footer
-Slides disponíveis em [GitHub](https://github.com/beatriz-ls/causality_introduction)
+Slides disponíveis em [GitHub](https://github.com/beatriz-ls/minicurso_introducao_inferencia_causal_rladies)
 :::
 
 ------------------------------------------------------------------------
