@@ -47,6 +47,26 @@ library(patchwork)    # Ajustar gráficos
 
 <hr>
 
+Dados simulados criados pelo [Prof. Dr. Andrews Heiss]{https://www.andrewheiss.com/}
+
+- **Objetivo:** Verificar se mosquiteiros reduzem o risco de malária
+
+- **Amostra:** 1.752 domicílios (dados observacionais)
+
+- **Contexto:** Estudo não-experimental - uso de mosquiteiros é por decisão própria das famílias
+
+- **Variáveis disponíveis:** Fatores ambientais, de saúde e características domiciliares
+
+
+
+-------------------------------------------------------------------
+
+##  {#dados2 data-menu-title="Dados"}
+
+[Nosso dataset]{.slide-title}
+
+<hr>
+
 `id`: Um identificador único para cada participante
 
 `net e net_num`: Uma variável binária que indica se o participante usou mosquiteiro (1) ou não usou (0)
@@ -347,3 +367,227 @@ propensity_model <- glm(
   family = binomial()
 )
 ```
+
+----------------------------------------------------------------------------
+
+## {#propensity_score data-menu-title="Propensity Score"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+[Propensity Score]{.custom-subtitle2}
+<hr>
+
+```{r ex12, echo=TRUE, include=TRUE, warning=FALSE}
+
+# Cálculo dos pesos IPW (ATE)
+net_data_wts <- propensity_model |>
+  augment(data = net_data, type.predict = "response") |>
+  mutate(wts = wt_ate(.fitted, net))
+
+```
+
+:::{.notes}
+Modelo de propensity score: prediz probabilidade de usar mosquiteiro baseado nos confundidores. Pesos IPW criam pseudo-população balanceada.
+:::
+
+----------------------------------------------------------------------------
+
+## {#diagnostico_balanceamento data-menu-title="Diagnóstico do Balanceamento"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+[Balanceamento do Propensity Score]{.custom-subtitle2}
+
+<hr>
+
+```{r ex13, echo=TRUE, include=TRUE, warning=FALSE}
+
+# Balanceamento do propensity score
+ggplot(net_data_wts, aes(.fitted)) +
+  geom_mirror_histogram(aes(fill = net), bins = 50) +
+  scale_y_continuous(labels = abs)
+
+```
+
+----------------------------------------------------------------------------
+
+## {#balanceamento_ponderado data-menu-title="Balanceamento Ponderado"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+[Balanceamento Após Ponderação]{.custom-subtitle2}
+
+<hr>
+
+```{r ex14, echo=TRUE, include=TRUE, warning=FALSE}
+
+# Balanceamento ponderado
+ggplot(net_data_wts, aes(.fitted)) +
+  geom_mirror_histogram(aes(group = net), bins = 50) +
+  geom_mirror_histogram(
+    aes(fill = net, weight = wts),
+    bins = 50, alpha = .5
+  ) +
+  scale_y_continuous(labels = abs)
+
+```
+
+:::{.notes}
+Após ponderação IPW: distribuições ficam muito similares entre grupos, indicando bom balanceamento.
+:::
+
+----------------------------------------------------------------------------
+
+## {#smd_plot data-menu-title="Diferenças Padronizadas"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+[Love Plot - Diferenças Padronizadas]{.custom-subtitle2}
+
+<hr>
+
+```{r ex15, echo=TRUE, include=TRUE, warning=FALSE}
+
+# Diferenças padronizadas de médias (SMD)
+plot_df <- tidy_smd(
+  net_data_wts,
+  c(income, health, temperature),
+  .group = net,
+  .wts = wts
+)
+
+ggplot(plot_df, aes(x = abs(smd), y = variable, group = method, color = method)) +
+  geom_love()
+```
+
+:::{.notes}
+Love plot: SMD < 0.1 após ponderação indica bom balanceamento. IPW reduziu diferenças entre grupos.
+:::
+
+----------------------------------------------------------------------------
+
+## {#distribuicao_pesos data-menu-title="Distribuição dos Pesos"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+[Distribuição dos Pesos IPW]{.custom-subtitle2}
+
+<hr>
+
+```{r ex16, echo=TRUE, include=TRUE, warning=FALSE}
+# Distribuição dos pesos
+net_data_wts |>
+  ggplot(aes(wts)) +
+  geom_density(fill = "#CC79A7", color = NA, alpha = 0.8)
+```
+
+:::{.notes}
+Distribuição dos pesos: sem valores extremos que possam destabilizar as estimativas.
+:::
+
+----------------------------------------------------------------------------
+
+## {#modelo_ipw data-menu-title="Modelo IPW"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+[Estimativa IPW do Efeito Causal]{.custom-subtitle2}
+
+<hr>
+
+```{r ex17, echo=TRUE, include=TRUE, warning=FALSE}
+# Modelo ponderado
+modelo_ipw <- lm(malaria_risk ~ net, data = net_data_wts, weights = wts)
+tidy(modelo_ipw, conf.int = TRUE)
+```
+
+:::{.notes}
+Efeito causal ajustado: -12.5 pontos de risco. Redução de 29% comparado ao modelo ingênuo (-16.4).
+:::
+
+----------------------------------------------------------------------------
+
+## {#bootstrap_funcao data-menu-title="Bootstrap IPW"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+[Função Bootstrap para Intervalo de Confiança]{.custom-subtitle2}
+
+<hr>
+
+```{r ex18, echo=TRUE, include=TRUE, warning=FALSE}
+# Função para bootstrap
+fit_ipw <- function(.split, ...) {
+  .df <- as.data.frame(.split)
+  
+  # Re-estimar tudo no bootstrap
+  propensity_model <- glm(
+    net ~ income + health + temperature,
+    data = .df,
+    family = binomial()
+  )
+  
+  .df <- propensity_model |>
+    augment(type.predict = "response", data = .df) |>
+    mutate(wts = wt_ate(.fitted, net))
+  
+  lm(malaria_risk ~ net, data = .df, weights = wts) |>
+    tidy()
+}
+```
+
+:::{.notes}
+Bootstrap corretamente re-estima propensity scores em cada amostra, incorporando incerteza da estimação dos pesos.
+:::
+
+----------------------------------------------------------------------------
+
+## {#aplicar_bootstrap data-menu-title="Aplicar Bootstrap"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+[Aplicando Bootstrap]{.custom-subtitle2}
+
+<hr>
+
+```{r ex19, echo=TRUE, include=TRUE, warning=FALSE}
+# Aplicar bootstrap
+bootstrapped_net_data <- bootstraps(net_data, times = 1000, apparent = TRUE)
+
+ipw_results <- bootstrapped_net_data |>
+  mutate(boot_fits = map(splits, fit_ipw))
+
+# Intervalos de confiança bootstrap
+boot_estimate <- ipw_results |>
+  int_t(boot_fits) |>
+  filter(term == "netTRUE")
+
+print(boot_estimate)
+```
+
+:::{.notes}
+1000 amostras bootstrap criam distribuição empírica do efeito causal, incorporando toda a incerteza.
+
+IC bootstrap corrigido: [-13.4, -11.7]. Mais conservador que IC ingênuo devido à incerteza dos pesos.
+:::
+
+
+----------------------------------------------------------------------------
+
+## {#conclusao_exemplo data-menu-title="Conclusão do Exemplo"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+[Conclusão]{.custom-subtitle2}
+
+<hr>
+
+- Conclusão: Uso de mosquiteiros reduz significativamente o risco de malária
+
+- ATE estimado e Intervalo de confiança: -12,5[-13.4 , -11.7 ] com 95% de confiança
+
+- Viés de confundimento: Modelo ingênuo superestimou o efeito em ~30%
+
+
+----------------------------------------------------------------------------
+
