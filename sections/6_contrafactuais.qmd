@@ -10,6 +10,173 @@ format:
     theme: "bea_slide_theme.scss"
 ---
 
+## {#backdoor data-menu-title="Identificação}
+
+[Indentificação causal]{.slide-title}
+
+[Critério Backdoor]{.custom-subtitle2}
+
+<hr>
+
+::: columns
+::: {.column width="50%"}
+
+::: sanchez-font
+::: purple-text
+Definição
+:::
+:::
+
+Caminho backdoor é qualquer caminho entre X e Y que: \
+
+- Começa com uma seta **entrando** em X \
+
+- Pode conter confundidores \
+
+:::
+
+::: {.column width="50%"}
+
+::: sanchez-font
+::: purple-text
+Exemplo
+:::
+:::
+
+::: panel-tabset
+
+## Output
+```{r rdag exemplo backdoor output, fig.width=5, fig.height=4, fig.align='center', echo=FALSE, message=FALSE, warning=FALSE}
+backdoor_dag <- dagify(
+  Y ~ X + Z,
+  X ~ Z,
+  exposure = "X",
+  outcome = "Y"
+)
+
+ggdag(backdoor_dag, node_size = 14) + 
+  theme_dag() +
+  labs(title = "Caminho Backdoor: X ← Z → Y")
+```
+
+## Código
+
+```{r rdag exemplo backdoor code, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
+backdoor_dag <- dagify(
+  Y ~ X + Z,
+  X ~ Z,
+  exposure = "X",
+  outcome = "Y"
+)
+
+ggdag(backdoor_dag, node_size = 14) + 
+  theme_dag() +
+  labs(title = "Caminho Backdoor: X ← Z → Y")
+```
+
+:::
+:::
+:::
+
+:::{.notes}
+
+Um conjunto Z satisfaz o critério backdoor se:
+
+- Nenhum elemento de Z é descendente de X (X ∉ Anc(Z))
+- Z bloqueia todos os caminhos backdoor entre X e Y
+- Todo caminho que começa com X ← ... está bloqueado dado Z
+:::
+
+--------------------------------------------------------------------------
+
+## {#backdoor data-menu-title="Identificação}
+
+[Indentificação causal]{.slide-title}
+
+[Critério Backdoor: Exemplo]{.custom-subtitle2}
+
+<hr>
+
+::: sanchez-font
+::: purple-text
+**Cenário**
+:::
+:::
+
+Será que café causa câncer de pulmão?
+
+**Variáveis:**
+- Coffee: Consumo de café
+- Cancer: Câncer de pulmão  
+- Smoking: Tabagismo
+- Addictive: Comportamento viciante
+
+**Hipótese:** Comportamento viciante é confundidor!
+
+--------------------------------------------------------------------------
+
+## {#backdoor data-menu-title="Identificação}
+
+[Indentificação causal]{.slide-title}
+
+[Critério Backdoor: Exemplo]{.custom-subtitle2}
+
+<hr>
+
+::: panel-tabset
+
+## DAG
+
+```{r coffee-cancer-dag-output, fig.width=5, fig.height=4, fig.align='center', echo=FALSE, message=FALSE, warning=FALSE}
+coffee_cancer_dag <- dagify(
+  cancer ~ smoking,
+  smoking ~ addictive,
+  coffee ~ addictive,
+  exposure = "coffee",
+  outcome = "cancer",
+  labels = c(
+    "coffee" = "Coffee", 
+    "cancer" = "Lung Cancer", 
+    "smoking" = "Smoking", 
+    "addictive" = "Addictive \nBehavior"
+  )
+)
+
+ggdag(coffee_cancer_dag, text = FALSE, use_labels = "label") +
+  theme_dag()
+```
+
+## Code DAG
+
+```{r coffee-cancer-dag-code, fig.width=5, fig.height=4, fig.align='center', echo=TRUE, eval=FALSE, warning=FALSE}
+coffee_cancer_dag <- dagify(
+  cancer ~ smoking,
+  smoking ~ addictive,
+  coffee ~ addictive,
+  exposure = "coffee",
+  outcome = "cancer",
+  labels = c(
+    "coffee" = "Coffee", 
+    "cancer" = "Lung Cancer", 
+    "smoking" = "Smoking", 
+    "addictive" = "Addictive \nBehavior"
+  )
+)
+
+ggdag(coffee_cancer_dag, text = FALSE, use_labels = "label") +
+  theme_dag()
+```
+
+## Caminhos Backdoor
+
+```{}
+
+```
+
+::::
+
+--------------------------------------------------------------------------
+
 ##  {#contrafactuais data-menu-title="Contrafactuais"}
 
 [Introduzindo Contrafactuais]{.slide-title}

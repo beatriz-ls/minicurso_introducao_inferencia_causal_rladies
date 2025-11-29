@@ -234,6 +234,47 @@ O Problema Fundamental da Inferência Causal
 
 <hr>
 
+::: columns
+::: {.column width="50%"}
+::: sanchez-font
+::: purple-text
+**Dados de experimentos completamente randomizados**
+:::
+:::
+
+Podemos realmente fazer: \
+- `do(T=1)` em grupo aleatório \
+- `do(T=0)` em outro grupo \
+- Comparar resultados \
+
+**Temos acesso direto** a $E[C | do(T=t)]$
+:::
+
+::: {.column width="50%"}
+::: sanchez-font
+::: purple-text
+**Dados Observacionais**
+:::
+:::
+
+Apenas observamos: \ 
+- $E[C | T=1]$ (quem escolheu tratar) \ 
+- $E[C | T=0]$ (quem escolheu não tratar) \
+
+**Mas**: $E[C | T=t] \neq E[C | do(T=t)]$
+:::
+:::
+
+::: {.callout-important title="Solução"}
+`Problema:` Variável Z afeta tanto T quanto C, assim:
+
+$E[C | T=1]$ = $$E[C | do(T=1)] + \text{Víes de confusão} $$
+
+`Solução`: Condicionando em Variáveis de Confusão
+
+$$E[C \mid do(T=t)] = \sum_{z} E[C \mid T=t, Z=z] \cdot P(Z=z)$$
+
+:::
 
 
 ------------------------------------------------------------------------
@@ -349,14 +390,8 @@ $$
 
 ------------------------------------------------------------------------
 
-[Intervenções]{.slide-title}
+::: {.fullscreen-colored}
+Okay, mas como selecionar quais variáveis \
+condicionar para calcular o tão querido ATE?
+:::
 
-[Efeito Causal Médio]{.custom-subtitle2}
-
-<hr>
-
-Uma vez definido o modelo probabilístico para intervenções e o efeito causal médio, podemos proceder com a inferência causal. Essa inferência geralmente envolve duas etapas fundamentais:
-
-- **Identificação Causal:** Como expressar o efeito causal em termos da distribuição observacional dos dados?
-
-- **Estimação:** Uma vez estabelecida essa relação, como calcular o efeito causal a partir dos dados disponíveis?
