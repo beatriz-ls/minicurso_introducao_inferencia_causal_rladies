@@ -21,3 +21,9 @@ format:
 
 **_PEARL, Judea; GLYMOUR, Madelyn; JEWELL, Nicholas P._** *Causal inference in statistics: a primer*. Chichester: Wiley, 2016.
 
+**FINK, G. et al. Mosquito net use in early childhood and survival to adulthood in Tanzania.**New England Journal of Medicine, 2022.
+
+**LENGELER, C. Insecticide-treated bed nets and curtains for preventing malaria.** 
+Cochrane Database of Systematic Reviews, 2004.
+
+**PRYCE, J.; RICHARDSON, M.; LENGELER, C. Insecticide-treated nets for preventing malaria.** Cochrane Database of Systematic Reviews, 2018.

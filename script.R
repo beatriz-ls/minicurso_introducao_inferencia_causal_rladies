@@ -3,6 +3,12 @@ library(knitr)
 library(dagitty)
 library(ggdag)
 library(ggplot2)
+library(causalworkshop) # Dados simulados
+library(broom)        # Tidy de modelos
+library(propensity)   # Cálculo de pesos IPW
+library(halfmoon)     # Diagnóstico de balanceamento
+library(rsample)      # Bootstrap
+library(purrr)        # Iteração
 
 # Construindo a base de dados
 data <- c(
@@ -177,4 +183,104 @@ ggdag(grafo, layout = "circle") +
         axis.text.y = element_blank(),
         axis.ticks.y = element_blank()) +
   xlab("") + ylab("")
+
+
+
+
+
+# Distribuição do risco de malária por uso de mosquiteiro
+net_data |>
+  ggplot(aes(malaria_risk, fill = net)) +
+  geom_density(color = NA, alpha = .8)
+
+# Diferença média simples
+net_data |>
+  group_by(net) |> 
+  summarize(malaria_risk = mean(malaria_risk))
+
+# Regressão linear ingênua
+modelo_naive <- lm(malaria_risk ~ net, data = net_data)
+tidy(modelo_naive)
+
+# 2. MODELO DE ESCORE DE PROPENSÃO
+propensity_model <- glm(
+  net ~ income + health + temperature,
+  data = net_data,
+  family = binomial()
+)
+
+# Cálculo dos pesos IPW (ATE)
+net_data_wts <- propensity_model |>
+  augment(data = net_data, type.predict = "response") |>
+  mutate(wts = wt_ate(.fitted, net))
+
+# 3. DIAGNÓSTICO DO MODELO
+# Balanceamento do propensity score
+ggplot(net_data_wts, aes(.fitted)) +
+  geom_mirror_histogram(aes(fill = net), bins = 50) +
+  scale_y_continuous(labels = abs)
+
+# Balanceamento ponderado
+ggplot(net_data_wts, aes(.fitted)) +
+  geom_mirror_histogram(aes(group = net), bins = 50) +
+  geom_mirror_histogram(
+    aes(fill = net, weight = wts),
+    bins = 50, alpha = .5
+  ) +
+  scale_y_continuous(labels = abs)
+
+# Diferenças padronizadas de médias (SMD)
+plot_df <- tidy_smd(
+  net_data_wts,
+  c(income, health, temperature),
+  .group = net,
+  .wts = wts
+)
+
+ggplot(plot_df, aes(x = abs(smd), y = variable, group = method, color = method)) +
+  geom_love()
+
+# Distribuição dos pesos
+net_data_wts |>
+  ggplot(aes(wts)) +
+  geom_density(fill = "#CC79A7", color = NA, alpha = 0.8)
+
+# 4. ESTIMAÇÃO DO EFEITO CAUSAL
+# Modelo ponderado
+modelo_ipw <- lm(malaria_risk ~ net, data = net_data_wts, weights = wts)
+tidy(modelo_ipw, conf.int = TRUE)
+
+# 5. BOOTSTRAP PARA IC CORRETOS
+fit_ipw <- function(.split, ...) {
+  .df <- as.data.frame(.split)
+  
+  # Re-estimar tudo no bootstrap
+  propensity_model <- glm(
+    net ~ income + health + temperature,
+    data = .df,
+    family = binomial()
+  )
+  
+  .df <- propensity_model |>
+    augment(type.predict = "response", data = .df) |>
+    mutate(wts = wt_ate(.fitted, net))
+  
+  lm(malaria_risk ~ net, data = .df, weights = wts) |>
+    tidy()
+}
+
+# Aplicar bootstrap
+bootstrapped_net_data <- bootstraps(net_data, times = 1000, apparent = TRUE)
+
+ipw_results <- bootstrapped_net_data |>
+  mutate(boot_fits = map(splits, fit_ipw))
+
+# Intervalos de confiança bootstrap
+boot_estimate <- ipw_results |>
+  int_t(boot_fits) |>
+  filter(term == "netTRUE")
+
+
+
+
 

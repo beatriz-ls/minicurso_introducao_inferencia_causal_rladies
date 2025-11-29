@@ -29,6 +29,8 @@ format:
  
 ------------------------------------------------------------------------
 
+##  {#bibliotecas data-menu-title="Bibliotecas"}
+
 [Bibliotecas]{.slide-title}
 
 <hr>

@@ -1,0 +1,349 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    code-link: true
+    highlight-style: a11y
+    chalkboard: true
+    # self-contained: true
+    # scrollable: true
+    theme: "bea_slide_theme.scss"
+---
+
+::: {.fullscreen-colored}
+Aplicação Final: \
+Rede de mosquitos e Risco de Malária
+:::
+
+---------------------------------------------------------------------
+
+##  {#bibliotecas2 data-menu-title="Revisando Bibliotecas"}
+
+[Revisando Bibliotecas necessárias]{.slide-title}
+
+<hr>
+
+```{r install_packages 1, echo=TRUE, warning=FALSE}
+library(ggdag)        # Construção de gráficos
+library(dagitty)      # Backdoor
+library(tidyverse)    # Manipulação de dados e visualização
+library(causalworkshop) # Dados simulados
+library(broom)        # Tidy de modelos
+library(propensity)   # Cálculo de pesos IPW
+library(halfmoon)     # Diagnóstico de balanceamento
+library(rsample)      # Bootstrap
+library(purrr)        # Iteração
+library(patchwork)    # Ajustar gráficos
+
+#install.packages("pak")
+#pak::pak("r-causal/causalworkshop")
+```
+
+-------------------------------------------------------------------
+
+##  {#dados data-menu-title="Dados"}
+
+[Nosso dataset]{.slide-title}
+
+<hr>
+
+`id`: Um identificador único para cada participante
+
+`net e net_num`: Uma variável binária que indica se o participante usou mosquiteiro (1) ou não usou (0)
+
+`malaria_risk`: Escala de risco de malária que varia de 0 a 100
+
+`income`: Renda semanal, medida em dólares
+
+`health`: Uma pontuação de saúde que varia de 0 a 100
+
+`household`: Número de pessoas que moram na residência
+
+`eligible`: Uma variável binária que indica se a residência é elegível para o programa de mosquiteiros gratuitos
+
+`temperature`: A temperatura média durante a noite, em graus Celsius
+
+`resistance`: Resistência a inseticidas dos mosquitos locais. Uma escala de 0 a 100, onde valores mais altos indicam maior resistência.
+
+:::{.notes}
+
+Because we’re using simulated data, we’ll have direct access to an outcome variable that measures the likelihood of contracting malaria, something we wouldn’t likely have in real life. We’ll stick with this measure because it allows us to more closely inspect the actual effect size, whereas, in practice, we would need to approximate the effect size through another proxy such as regular malaria testing among the population. 
+
+:::
+
+-------------------------------------------------------------------
+
+##  {#dados data-menu-title="Dados"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+<hr>
+
+```{r ex1, echo=TRUE, include=TRUE, warning=FALSE}
+# Distribuição do risco de malária por uso de mosquiteiro
+net_data |>
+  ggplot(aes(malaria_risk, fill = net)) +
+  geom_density(color = NA, alpha = .8)
+
+```
+
+-------------------------------------------------------------------
+
+##  {#dados data-menu-title="Dados"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+<hr>
+
+```{r ex2, echo=TRUE, include=TRUE, warning=FALSE}
+# Diferença média simples
+net_data |>
+  group_by(net) |> 
+  summarize(malaria_risk = mean(malaria_risk))
+
+```
+
+:::{.notes}
+Diferença média ingênua: quem usa mosquiteiro tem risco 16.4 pontos menor. Pode ter viés por confundimento.
+:::
+
+-------------------------------------------------------------------
+
+##  {#dados data-menu-title="Dados"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+[O Grafo]{.custom-subtitle2}
+
+<hr>
+
+```{r ex3, echo=TRUE, include=TRUE, warning=FALSE}
+malaria_dag <- dagify(
+  malaria_risk ~ net + income + health + temperature + resistance,
+  net ~ income + health + temperature + eligible + household,
+  eligible ~ income + household,
+  health ~ income,
+  exposure = "net",
+  outcome = "malaria_risk",
+  labels = c(
+    malaria_risk = "Malaria Risk",
+    net = "Net Use",
+    income = "Income",
+    health = "Health",
+    temperature = "Temperature",
+    resistance = "Resistance",
+    eligible = "Eligible",
+    household = "Household Size"
+  )
+)
+
+```
+
+-------------------------------------------------------------------
+
+##  {#grafo_malaria data-menu-title="Grafo do Exemplo de Malaria"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+[O Grafo]{.custom-subtitle2}
+
+<hr>
+
+```{r ex4, echo=TRUE, include=TRUE, warning=FALSE}
+ggdag(malaria_dag, text = FALSE, use_labels = "label") +
+  theme_dag()
+```
+
+:::{.notes}
+
+1. Determinantes do Risco de Malária (malaria_risk):
+- Uso de mosquiteiro (net) → Reduz risco de malária
+- Renda (income) → Afeta risco (pessoas mais ricas podem ter melhor acesso a cuidados)
+- Saúde (health) → Pessoas mais saudáveis têm menor risco
+- Temperatura (temperature) → Temperaturas mais altas podem aumentar transmissão
+- Resistência (resistance) → Resistência a inseticidas pode aumentar risco
+
+2. Determinantes do Uso de Mosquiteiro (net):
+- Renda (income) → Pessoas mais ricas podem comprar mosquiteiros
+- Saúde (health) → Pessoas que se importam mais com saúde podem usar mais
+- Temperatura (temperature) → Temperaturas mais altas podem aumentar uso
+- Elegibilidade (eligible) → Programa gratuito aumenta uso
+- Tamanho da família (household) → Famílias maiores podem ter diferentes padrões de uso
+
+3. Determinantes da Elegibilidade (eligible):
+- Renda (income) → Programas focam em pessoas de baixa renda
+- Tamanho da família (household) → Famílias maiores podem ter prioridade
+
+4. Determinante da Saúde (health):
+- Renda (income) → Pessoas mais ricas têm melhor saúde
+- Suposições de NÃO-Causalidade (ausência de setas)
+- Relações que NÃO existem no modelo:
+- Mosquiteiro → Renda (uso não afeta renda diretamente)
+- Risco de malária → Saúde (não há feedback loop)
+- Temperatura → Renda (temperatura não afeta renda diretamente)
+- Resistência → Uso de mosquiteiro (resistência não afeta decisão de uso)
+- Tamanho da família → Risco de malária (efeito apenas via uso de mosquiteiro)
+:::
+
+-------------------------------------------------------------------
+
+##  {#modelo_ingenuo_malaria data-menu-title="Avaliação do Exemplo de Malaria"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+[Modelo Ingênuo]{.custom-subtitle2}
+
+<hr>
+
+```{r model naive, echo=TRUE, include=TRUE, warning=FALSE}
+modelo_naive <- lm(malaria_risk ~ net, data = net_data)
+tidy(modelo_naive)
+```
+
+-------------------------------------------------------------------
+
+##  {#avaliacao_grafo_malaria data-menu-title="Avaliação do Exemplo de Malaria"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+[O Grafo: Avaliação]{.custom-subtitle2}
+
+<hr>
+
+```{r ex5, echo=TRUE, include=TRUE, warning=FALSE}
+# Todos os conjuntos possíveis
+adjustment_sets <- dagitty::adjustmentSets(
+  malaria_dag,
+  type = "minimal",
+  effect = "total"
+)
+print(adjustment_sets)
+```
+
+:::{.notes}
+Conjunto mínimo de ajuste: {health, income, temperature}. Suficiente para bloquear todos os caminhos de confundimento.
+
+10 caminhos totais: 1 causal direto + 9 de confundimento. 2 já fechados naturalmente (colidores).
+:::
+:::
+
+-------------------------------------------------------------------
+
+##  {#avaliacao_grafo_malaria2 data-menu-title="Avaliação do Exemplo de Malaria"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+[O Grafo: Avaliação]{.custom-subtitle2}
+
+<hr>
+
+```{r ex6, echo=TRUE, include=TRUE, warning=FALSE}
+# Testar d-separação
+dsep_test <- dagitty::dseparated(
+  malaria_dag,
+  "net", 
+  "malaria_risk",
+  c("income", "health", "temperature")
+)
+
+print(paste("D-separated:", dsep_test))
+```
+
+-------------------------------------------------------------------
+
+##  {#avaliacao_grafo_malaria3 data-menu-title="Avaliação do Exemplo de Malaria"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+[O Grafo: Avaliação]{.custom-subtitle2}
+
+<hr>
+
+```{r ex7, echo=TRUE, include=TRUE, warning=FALSE}
+paths <- dagitty::paths(
+  malaria_dag,
+  from = "net",
+  to = "malaria_risk"
+)
+
+print(paths)
+```
+
+--------------------------------------------------------------------------
+
+## {#avaliacao_grafo_malaria4 data-menu-title="Avaliação do Exemplo de Malaria"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+[O Grafo após ajuste]{.custom-subtitle2}
+
+<hr>
+
+```{r ex8, echo=TRUE, include=TRUE, warning=FALSE}
+
+# ANTES do ajuste
+antes <- ggdag_paths(malaria_dag,
+                    from = "net", 
+                    to = "malaria_risk",
+                    shadow = TRUE,
+                    text = FALSE) +
+  theme_dag() +
+  labs(title = "ANTES: Todos os caminhos abertos")
+
+# DEPOIS do ajuste  
+depois <- ggdag_paths(malaria_dag,
+                     from = "net", 
+                     to = "malaria_risk",
+                     shadow = TRUE,
+                     text = FALSE,
+                     adjust_for = c("health", "income", "temperature")) +
+  theme_dag() +
+  labs(title = "DEPOIS: Apenas caminho causal aberto")
+```
+
+----------------------------------------------------------------------------
+
+## {#avaliacao_grafo_malaria5 data-menu-title="Avaliação do Exemplo de Malaria"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+[Caminhos abertos antes do ajuste]{.custom-subtitle2}
+
+<hr>
+
+```{r ex9, echo=TRUE, include=TRUE, warning=FALSE}
+antes
+```
+
+----------------------------------------------------------------------------
+
+## {#avaliacao_grafo_malaria6 data-menu-title="Avaliação do Exemplo de Malaria"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+[Caminhos abertos depois do ajuste]{.custom-subtitle2}
+
+<hr>
+
+```{r ex10, echo=TRUE, include=TRUE, warning=FALSE}
+depois
+```
+
+
+----------------------------------------------------------------------------
+
+## {#avaliacao_grafo_malaria7 data-menu-title="Avaliação do Exemplo de Malaria"}
+
+[Rede de mosquitos e Risco de Malária]{.slide-title}
+
+[Propensity Score]{.custom-subtitle2}
+
+<hr>
+
+```{r ex11, echo=TRUE, include=TRUE, warning=FALSE}
+propensity_model <- glm(
+  net ~ income + health + temperature,
+  data = net_data,
+  family = binomial()
+)
+```
