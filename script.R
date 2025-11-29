@@ -110,3 +110,71 @@ ggdag(grafo, layout = "circle") +
         axis.text.y = element_blank(),
         axis.ticks.y = element_blank()) +
   xlab("") + ylab("")
+
+#Construindo o grafo com D-separação
+
+# Construindo o Grafo
+grafo_exemplo <-dagitty('dag {
+    V1 -> V2 <- V4
+    V2 -> V3 <- V4
+}')
+
+# Visualizando
+ggdag(grafo_exemplo) + theme_dag()
+
+#D-separação: Exemplo no R 
+
+library(dagitty)
+
+# PERGUNTA 1: V1 e V3 são d-separados marginalmente?
+dseparated(grafo_exemplo, "V1", "V3")
+
+# PERGUNTA 2: V1 e V3 são d-separados dado V2?
+dseparated(grafo_exemplo, "V1", "V3", "V2")
+
+# PERGUNTA 3: V1 e V3 são d-separados dado V2 e V4?
+dseparated(grafo_exemplo, "V1", "V3", c("V2", "V4"))
+
+# Isso mostra TODAS as relações de independência que o grafo implica
+impliedConditionalIndependencies(grafo_exemplo)
+
+#Paradoxo de Simpson: Cenário 1 (Z = Sexo)
+
+library(dagitty)
+library(ggdag)
+library(ggplot2)
+
+# Construindo o Grafo
+grafo <- dagitty("dag {
+T -> C
+Z -> C
+Z -> T
+}")
+# Exibir a figura do grafo
+ggdag(grafo, layout = "circle") +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  xlab("") + ylab("")
+
+#Paradoxo de Simpson: Cenário 2 (Z = Pressão alta)
+
+library(dagitty)
+library(ggdag)
+library(ggplot2)
+
+# Construindo o Grafo
+grafo <- dagitty("dag {
+T -> C
+Z -> C
+T -> Z
+}")
+# Exibir a figura do grafo
+ggdag(grafo, layout = "circle") +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  xlab("") + ylab("")
+

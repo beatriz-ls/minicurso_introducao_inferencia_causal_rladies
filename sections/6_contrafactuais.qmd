@@ -125,27 +125,6 @@ Será que café causa câncer de pulmão?
 
 ::: panel-tabset
 
-## DAG
-
-```{r coffee-cancer-dag-output, fig.width=5, fig.height=4, fig.align='center', echo=FALSE, message=FALSE, warning=FALSE}
-coffee_cancer_dag <- dagify(
-  cancer ~ smoking,
-  smoking ~ addictive,
-  coffee ~ addictive,
-  exposure = "coffee",
-  outcome = "cancer",
-  labels = c(
-    "coffee" = "Coffee", 
-    "cancer" = "Lung Cancer", 
-    "smoking" = "Smoking", 
-    "addictive" = "Addictive \nBehavior"
-  )
-)
-
-ggdag(coffee_cancer_dag, text = FALSE, use_labels = "label") +
-  theme_dag()
-```
-
 ## Code DAG
 
 ```{r coffee-cancer-dag-code, fig.width=5, fig.height=4, fig.align='center', echo=TRUE, eval=FALSE, warning=FALSE}
@@ -167,13 +146,94 @@ ggdag(coffee_cancer_dag, text = FALSE, use_labels = "label") +
   theme_dag()
 ```
 
-## Caminhos Backdoor
+## DAG
 
-```{}
+```{r coffee-cancer-dag-output, fig.width=5, fig.height=4, fig.align='center', echo=FALSE, message=FALSE, warning=FALSE}
+coffee_cancer_dag <- dagify(
+  cancer ~ smoking,
+  smoking ~ addictive,
+  coffee ~ addictive,
+  exposure = "coffee",
+  outcome = "cancer",
+  labels = c(
+    "coffee" = "Coffee", 
+    "cancer" = "Lung Cancer", 
+    "smoking" = "Smoking", 
+    "addictive" = "Addictive \nBehavior"
+  )
+)
 
+ggdag(coffee_cancer_dag, text = FALSE, use_labels = "label") +
+  theme_dag()
 ```
 
-::::
+## Code Caminhos Backdoor
+
+```{r coffee-cancer-dag-path-code, fig.width=5, fig.height=4, fig.align='center', echo=TRUE, eval=FALSE, warning=FALSE}
+coffee_cancer_dag |>
+  ggdag_paths()
+```
+
+## Caminhos Backdoor
+
+```{r coffee-cancer-dag-path-ouput, fig.width=5, fig.height=4, fig.align='center', echo=FALSE, message=FALSE, warning=FALSE}
+coffee_cancer_dag |>
+  ggdag_paths()
+```
+
+## Code Adjustments
+
+```{r coffee-cancer-adjustments-code, fig.width=7, fig.height=4, fig.align='center', echo=TRUE, eval=FALSE, warning=FALSE}
+ggdag_adjustment_set(
+  coffee_cancer_dag, 
+  use_labels = "label", 
+  text = FALSE
+)
+```
+
+## Caminhos Adjustments
+
+```{r coffee-cancer-adjustments-ouput, fig.width=7, fig.height=4, fig.align='center', echo=FALSE, message=FALSE, warning=FALSE}
+ggdag_adjustment_set(
+  coffee_cancer_dag, 
+  use_labels = "label", 
+  text = FALSE
+)
+```
+
+:::
+
+::: {.notes}
+
+dag_paths() - Análise de Caminhos:
+O resultado mostra apenas 1 caminho entre Coffee e Lung Cancer:
+text
+Coffee ← Addictive Behavior → Smoking → Lung Cancer
+Status: "open path" → caminho ABERTO (não bloqueado)
+Isso significa que há fluxo de informação espúria via Addictive Behavior
+2. ggdag_adjustment_set() - Soluções:
+A função identificou DOIS conjuntos de ajuste válidos:
+Opção 1: Ajustar por {addictive}
+Bloqueia: Coffee ← Addictive Behavior → Smoking → Lung Cancer
+Remove o confundidor na raiz
+Opção 2: Ajustar por {smoking}
+Bloqueia: Coffee ← Addictive Behavior → Smoking → Lung Cancer
+Remove o efeito do mediador/consequência
+O que Significa na Prática:
+SEM ajuste: Você vê associação espúria entre café e câncer porque:
+Pessoas com comportamento viciante → bebem mais café + fumam mais → desenvolvem câncer
+O modelo atribui erroneamente o efeito do fumo ao café
+COM ajuste (qualquer uma das opções):
+Você isola o efeito real do café
+Remove o viés do comportamento viciante
+A associação observada se aproxima do efeito causal real
+Por que Duas Opções?
+Ambas funcionam porque:
+Addictive Behavior é o confundidor raiz
+Smoking é o mecanismo através do qual o confundidor opera
+Controlar qualquer um dos dois quebra o caminho espúrio
+
+:::
 
 --------------------------------------------------------------------------
 
@@ -281,3 +341,103 @@ Entre pessoas tratadas, seria mais comum curar ou não curar?
 :::
 
 :::
+
+-------------------------------------------------------------------------------
+
+##  {#contrafactuais data-menu-title="Contrafactuais"}
+
+[Contrafactuais]{.slide-title}
+
+[Ponderação pelo Inverso da Probabilidade de Tratamento (IPW)]{.custom-subtitle2}
+
+<hr>
+
+::: sanchez-font
+::: purple-text
+O Problema Contrafactual
+:::
+:::
+
+"Entre as pessoas tratadas e curadas, seria mais comum curar caso elas não tivessem sido tratadas?"
+
+**Tradução prática:** Precisamos criar um mundo contrafactual onde:
+
+- Pessoas tratadas possam ser comparadas com não-tratadas
+
+- Mas sem o viés de seleção do tratamento
+
+- Como se o tratamento fosse atribuído aleatoriamente
+
+:::{.notes}
+IPW responde: "Como seria o mundo se todos tivessem a mesma probabilidade de receber o tratamento?"
+Cria uma pseudopopulação onde o tratamento é independente das covariáveis
+:::
+
+-------------------------------------------------------------------------------
+
+## {#ipw-mechanism data-menu-title="IPW"}
+
+[Ponderação pelo Inverso da Probabilidade de Tratamento]{.slide-title}
+
+[Recriando um estudo randomizado]{.custom-subtitle2}
+
+<hr>
+
+::: columns
+::: {.column width="50%"}
+::: sanchez-font
+::: purple-text
+Fórmula dos Pesos
+:::
+:::
+
+Para cada indivíduo $i$:
+
+$$
+w_I
+$$
+
+Intuição:
+
+  - Peso alto: Indivíduo "improvável" em seu grupo
+
+  - Peso baixo: Indivíduo "esperado" em seu grupo
+
+:::
+
+::: {.column width="50%"}
+```{r exemplo peso, echo=FALSE, message=FALSE, warning=FALSE}
+
+# Exemplo de pesos
+exemplo <- data.frame(
+  Indivíduo = 1:6,
+  Grupo = c("Tratado", "Tratado", "Tratado", "Controle", "Controle", "Controle"),
+  PS = c(0.9, 0.7, 0.8, 0.2, 0.3, 0.1),
+  Peso = c(1.11, 1.43, 1.25, 1.25, 1.43, 1.11)
+)
+
+knitr::kable(exemplo, caption = "Exemplo de Cálculo de Pesos")
+```
+:::
+:::
+
+:::{.notes}
+
+FÓRMULA DOS PESOS:
+"A fórmula mostra que os pesos dependem do grupo do indivíduo:"
+"Para tratados: peso = 1 dividido pelo propensity score"
+"Para controles: peso = 1 dividido por (1 - propensity score)"
+
+INTUIÇÃO DOS PESOS:
+Peso alto: "Indivíduos com baixa probabilidade de estar no grupo onde estão"
+Peso baixo: "Indivíduos com alta probabilidade de estar no grupo onde estão"
+
+EXPLICAÇÃO DA TABELA:
+"Na tabela, vejam a relação entre PS e peso:"
+"PS alto (0.9) → peso baixo (1.11)"
+"PS baixo (0.7) → peso alto (1.43)"
+"O mesmo padrão vale para controles"
+
+:::
+
+
