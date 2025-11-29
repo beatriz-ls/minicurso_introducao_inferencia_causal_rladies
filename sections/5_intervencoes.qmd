@@ -23,7 +23,7 @@ format:
 ::: panel-tabset
 ### Output
 
-```{r dag exemplo img, fig.width=5, fig.height=4, fig.align='center', echo=FALSE, message=FALSE, warning=FALSE}
+```{r dag exemplo img z_sexo, fig.width=5, fig.height=4, fig.align='center', echo=FALSE, message=FALSE, warning=FALSE}
 library(dagitty)
 library(ggdag)
 library(ggplot2)
@@ -46,7 +46,7 @@ ggdag(grafo, layout = "circle") +
 
 ### Código
 
-```{r dag chain code,echo = TRUE, fig.show='hide', message=FALSE, warning=FALSE}
+```{r dag chain code z_sexo,echo = TRUE, fig.show='hide', message=FALSE, warning=FALSE}
 library(dagitty)
 library(ggdag)
 library(ggplot2)
@@ -83,6 +83,83 @@ Observações
 -   T é uma causa de C
 :::
 :::
+
+------------------------------------------------------------------------
+
+##  {#intervencoes data-menu-title="Entendendo Intervenções"}
+
+[Entendendo Intervenções]{.slide-title}
+
+[O Paradoxo de Simpson: Cenário 2 (Z = Pressão Alta)]{.custom-subtitle2}
+
+<hr>
+
+::: columns
+::: {.column width="50%"}
+::: panel-tabset
+### Output
+
+```{r dag exemplo img z_pressao, fig.width=5, fig.height=4, fig.align='center', echo=FALSE, message=FALSE, warning=FALSE}
+library(dagitty)
+library(ggdag)
+library(ggplot2)
+
+# Construindo o grafo
+grafo <- dagitty("dag {
+T -> C
+Z -> C
+T -> Z
+}")
+# Exibir a figura do grafo
+ggdag(grafo, layout = "circle") +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  xlab("") + ylab("")
+
+```
+
+### Código
+
+```{r dag chain code z_pressao,echo = TRUE, fig.show='hide', message=FALSE, warning=FALSE}
+library(dagitty)
+library(ggdag)
+library(ggplot2)
+
+# Construindo o Grafo
+grafo <- dagitty("dag {
+T -> C
+Z -> C
+T -> Z
+}")
+# Exibir a figura do grafo
+ggdag(grafo, layout = "circle") +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  xlab("") + ylab("")
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: sanchez-font
+::: red-text
+Observações
+:::
+:::
+
+::: hr-red
+:::
+
+-   T é uma causa tanto de Z quanto de C;
+
+-   Z é uma causa de C
+:::
+:::
+
 
 ------------------------------------------------------------------------
 
@@ -139,6 +216,147 @@ Qual a probabilidade de que um indivíduo selecionado aleatoriamente da populaç
 -   Calculando:
 
 $$
-f(c \mid do(t)) = \sum_{z} f(z) f(c \mid z, t)
+f(c \mid do(t = 1)) = \sum_{z} f(z) f(c \mid z, t = 1)
 $$
 
+----------------------------------------------------------------------
+
+::: {.fullscreen-colored}
+O Problema Fundamental da Inferência Causal
+:::
+
+
+------------------------------------------------------------------------
+
+[Intervenções]{.slide-title}
+
+[O Problema Fundamental da Inferência Causal]{.custom-subtitle2}
+
+<hr>
+
+
+
+------------------------------------------------------------------------
+
+[Intervenções]{.slide-title}
+
+[Efeito Causal Médio]{.custom-subtitle2}
+
+<hr>
+
+$$
+ACE = 
+\begin{cases}
+E[Y \mid do(X=1)] - E[Y \mid do(X=0)], & \text{se } X \text{ é binário}, \\
+\dfrac{\partial}{\partial x} E[Y \mid do(X=x)], & \text{se } X \text{ é contínuo}.
+\end{cases}
+$$
+
+------------------------------------------------------------------------
+
+[Intervenções]{.slide-title}
+
+[Efeito Causal Médio: Paradoxo de Simpson]{.custom-subtitle2}
+
+<hr>
+
+:::body-text-s
+
+**Retomando os cálculos do exemplo:**
+
+::: columns
+::: {.column width="50%"}
+
+$$\mathbb{P}(Z = 1) = \frac{25 + 55 + 71 + 192}{700} \approx 0.49$$
+
+$$\mathbb{P}(Z = 0) = 1 - \mathbb{P}(Z = 1) \approx 0.51$$
+
+$$\mathbb{P}(Z = 1|T = 0) = \frac{25 + 55}{25 + 55 + 36 + 234} \approx 0.23$$
+
+$$\mathbb{P}(Z = 1|T = 1) = \frac{71 + 192}{71 + 192 + 6 + 81} \approx 0.75$$
+:::
+
+::: {.column width="50%"}
+$$\mathbb{P}(C = 1|T = 0, Z = 0) = \frac{234}{234 + 36} \approx 0.87$$
+
+$$\mathbb{P}(C = 1|T = 1, Z = 0) = \frac{81}{81 + 6} \approx 0.93$$
+
+$$\mathbb{P}(C = 1|T = 0, Z = 1) = \frac{55}{25 + 55} \approx 0.69$$
+
+$$\mathbb{P}(C = 1|T = 1, Z = 1) = \frac{192}{71 + 192} \approx 0.73$$
+:::
+:::
+:::
+
+------------------------------------------------------------------------
+
+[Intervenções]{.slide-title}
+
+[Efeito Causal Médio: Cenário 1 (Z = Sexo)]{.custom-subtitle2}
+
+<hr>
+
+:::body-text-s
+
+$$\mathbb{P}_1(C = i, Z = j|do(T = k)) = \mathbb{P}(Z = j)\mathbb{P}(C = i|T = k, Z = j)$$
+
+Assim,
+
+$$\mathbb{P}_1(C = 1|do(T = 1)) = \mathbb{P}_1(C = 1, Z = 0|do(T = 1)) + \mathbb{P}_1(C = 1, Z = 1|do(T = 1)) \\
+\approx 0.83$$
+
+$$\mathbb{P}_1(C = 1|do(T = 0)) = \mathbb{P}_1(C = 1, Z = 0|do(T = 0)) + \mathbb{P}_1(C = 1, Z = 1|do(T = 0)) \\
+\approx 0.78$$
+
+Calculando:
+
+$$
+ACE = E[C \mid do(T = 1)] - E[C \mid do(T = 0)]
+= P(C = 1 \mid do(T = 1)) - P(C = 1 \mid do(T = 0)) \approx 0.05
+$$
+:::
+
+------------------------------------------------------------------------
+
+[Intervenções]{.slide-title}
+
+[Efeito Causal Médio: Cenário 2 (Z = Pressão Alta)]{.custom-subtitle2}
+
+<hr>
+
+:::body-text-s
+
+$$
+P_0(C = i, Z = j \mid do(T = k)) = P(Z = j \mid T = k)P(C = i \mid T = k, Z = j)
+$$
+Assim,
+
+$$
+\mathbb{P}_2(C = 1 \mid do(T = 1)) = \mathbb{P}_2(C = 1, Z = 0 \mid do(T = 1)) + \mathbb{P}_2(C = 1, Z = 1 \mid do(T = 1)) \approx 0.78
+$$
+
+$$
+\mathbb{P}_2(C = 1 \mid do(T = 0)) = \mathbb{P}_2(C = 1, Z = 0 \mid do(T = 0)) + \mathbb{P}_2(C = 1, Z = 1 \mid do(T = 0)) \approx 0.83
+$$
+Calculando:
+
+$$
+ACE = E[C \mid do(T = 1)] - E[C \mid do(T = 0)]
+= P_2(C = 1 \mid do(T = 1)) - P_2(C = 1 \mid do(T = 0)) \approx -0.05
+$$
+
+:::
+
+------------------------------------------------------------------------
+
+[Intervenções]{.slide-title}
+
+[Efeito Causal Médio]{.custom-subtitle2}
+
+<hr>
+
+Uma vez definido o modelo probabilístico para intervenções e o efeito causal médio, podemos proceder com a inferência causal. Essa inferência geralmente envolve duas etapas fundamentais:
+
+- **Identificação Causal:** Como expressar o efeito causal em termos da distribuição observacional dos dados?
+
+- **Estimação:** Uma vez estabelecida essa relação, como calcular o efeito causal a partir dos dados disponíveis?

@@ -52,7 +52,7 @@ Definir um Modelo Causal, definido por meio de **Modelos Probabilisticos em Graf
 
 ::: body-text-s
 ::: sanchez-font
-::: red-text
+::: purple-text
 Definição
 :::
 :::
@@ -62,7 +62,7 @@ Um DAG é um grafo direcionado tal que, para todo vértice, **V** , não é poss
 -   Representação causal: $V_1 \rightarrow V_2$ = "$V_1$ causa $V_2$"
 
 ::: sanchez-font
-::: red-text
+::: purple-text
 Lema
 :::
 :::
@@ -73,7 +73,7 @@ Pa(\mathcal{V}) := \{V^* \in V : \exists V \in \mathcal{V} \text{ tal que } (V^*
 $$
 
 ::: sanchez-font
-::: red-text
+::: purple-text
 Lema
 :::
 :::
@@ -96,8 +96,10 @@ $$
 
 <hr>
 
+::: body-text-s
+
 ::: sanchez-font
-::: red-text
+::: purple-text
 Definição
 :::
 :::
@@ -109,7 +111,7 @@ f(v_1,\ldots,v_n) = \prod_{i=1}^n f(v_i \mid \mathrm{Pa}(v_i))
 $$
 
 ::: sanchez-font
-::: red-text
+::: purple-text
 Lema
 :::
 :::
@@ -123,6 +125,7 @@ $$
 $$
 \int g_i(v_i, \mathrm{Pa}(v_i)) \, dv_i = 1 \quad \forall i
 $$
+:::
 
 ------------------------------------------------------------------------
 
@@ -182,12 +185,12 @@ ggdag(grafo, layout = "circle") +
 
 ::: {.column width="50%"}
 ::: sanchez-font
-::: red-text
+::: purple-text
 Observações
 :::
 :::
 
-::: hr-red
+::: hr-purple
 :::
 
 -   $V_1$ é causa de $V_2$ que, por sua vez, é causa de $V_3$. Assim, $V_1$ é ancestral de $V_3$, isto é, o primeiro é a causa indireta do segundo;
@@ -256,12 +259,12 @@ ggdag(grafo, layout = "circle") +
 
 ::: {.column width="50%"}
 ::: sanchez-font
-::: red-text
+::: purple-text
 Observações
 :::
 :::
 
-::: hr-red
+::: hr-purple
 :::
 
 -   $V_1$ é uma causa comum a $V_2$ e a $V_3$;
@@ -330,12 +333,12 @@ ggdag(grafo, layout = "circle") +
 
 ::: {.column width="50%"}
 ::: sanchez-font
-::: red-text
+::: purple-text
 Observações
 :::
 :::
 
-::: hr-red
+::: hr-purple
 :::
 
 -   $V_1$ e $V_3$ são causas comum a $V_2$;
@@ -345,3 +348,158 @@ Observações
 -   $V_1$ e $V_3$ estão correlacionados quando condicionados em $V_2$.
 :::
 :::
+
+------------------------------------------------------------------------
+
+::: {.fullscreen-colored}
+D-separação
+:::
+
+------------------------------------------------------------------------
+
+[O Modelo Causal]{.slide-title}
+
+[D-separação]{.custom-subtitle2}
+
+<hr>
+
+::: sanchez-font
+::: purple-text
+Objetivo
+:::
+:::
+
+A D-separação é uma regra formal para determinar, a partir do DAG, quando dois conjuntos de variáveis (X e Y) são independentes condicionalmente em um terceiro conjunto (Z).
+
+::: sanchez-font
+::: purple-text
+Regra Geral
+:::
+:::
+Um caminho entre X e Y está bloqueado por Z se o caminho contiver:
+
+- Um não-colisor que está sendo condicionado, OU
+
+- Um colisor que NÃO está sendo condicionado (nem seus descendentes)
+
+:::{.notes}
+Regras de Bloqueio:
+- Não-colisor: Bloqueia quando condicionado
+- Colisor: Bloqueia quando NÃO condicionado
+
+Lição Principal:
+Condicionar em colisor pode INTRODUZIR dependência onde não existia! Isso é contra-intuitivo mas fundamental em causalidade.
+:::
+
+    
+------------------------------------------------------------------------
+
+[O Modelo Causal]{.slide-title}
+
+[D-separação: Exemplo]{.custom-subtitle2}
+
+<hr>
+
+::: columns
+::: {.column width="50%"}
+::: panel-tabset
+### Output
+
+```{r dag dseparacao exemplo output, fig.width=5, fig.height=4, fig.align='center', echo=FALSE, message=FALSE, warning=FALSE}
+grafo_exemplo <- dagitty('dag {
+    V1 -> V2 <- V4
+    V2 -> V3 <- V4
+}')
+
+# Visualizando
+ggdag(grafo_exemplo) + theme_dag()
+
+```
+
+### Código
+
+```{r dag dseparacao exemplo code,echo = TRUE, fig.show='hide', message=FALSE, warning=FALSE}
+# Construindo o Grafo
+grafo_exemplo <-dagitty('dag {
+    V1 -> V2 <- V4
+    V2 -> V3 <- V4
+}')
+
+# Visualizando
+ggdag(grafo_exemplo) + theme_dag()
+```
+:::
+:::
+
+:::{.column width="50%"}
+
+::: sanchez-font
+::: purple-text
+Dúvidas
+:::
+:::
+
+:::hr-purple
+1. V1 e V3 são d-separados marginalmente?
+2. V1 e V3 são d-separados dado V2?
+3. V1 e V3 são d-separados dado V2 e V4?
+:::
+
+:::
+:::
+
+:::{.notes}
+
+1. V1 e V3 são d-separados marginalmente? Não
+Existem caminhos ativos:
+- Caminho 1: V1 → V2 → V3 (V2 não é colisor, caminho ativo)
+- Caminho 2: V1 → V2 ← V4 → V3 (V2 é colisor, mas não estamos condicionando nele → bloqueado)
+Como um caminho está ativo, NÃO são d-separados.
+
+2. V1 e V3 são d-separados dado V2? NÃO
+Agora o segundo caminho se torna ativo:
+- Caminho 1: V1 → V2 → V3 (V2 não é colisor, condicionamos nele → bloqueado ✓)
+- Caminho 2: V1 → V2 ← V4 → V3 (V2 é colisor, condicionamos nele → ATIVO ✗)
+Condicionar em colisor ABRE o caminho!
+
+3. V1 e V3 são d-separados dado V2 e V4?SIM
+Ambos os caminhos bloqueados:
+- Caminho 1: V1 → V2 → V3 (V2 não é colisor, condicionamos → bloqueado ✓)
+- Caminho 2: V1 → V2 ← V4 → V3 (V4 não é colisor, condicionamos → bloqueado ✓)
+Todos os caminhos bloqueados!
+
+Implicações Práticas:
+
+Se você quer estudar o efeito de V1 em V3:
+- Não condicione apenas em V2 (introduz viés!)
+- Condicione em V2 E V4 para bloquear todos os caminhos
+:::
+
+------------------------------------------------------------------------
+
+[O Modelo Causal]{.slide-title}
+
+[D-separação: Exemplo no R]{.custom-subtitle2}
+
+<hr>
+
+```{r dseparacao, echo=TRUE, warning=FALSE}
+library(dagitty)
+
+# PERGUNTA 1: V1 e V3 são d-separados marginalmente?
+dseparated(grafo_exemplo, "V1", "V3")
+
+# PERGUNTA 2: V1 e V3 são d-separados dado V2?
+dseparated(grafo_exemplo, "V1", "V3", "V2")
+
+# PERGUNTA 3: V1 e V3 são d-separados dado V2 e V4?
+dseparated(grafo_exemplo, "V1", "V3", c("V2", "V4"))
+```
+
+
+```{r funcao independencia, echo=TRUE, warning=FALSE}
+# Isso mostra TODAS as relações de independência que o grafo implica
+impliedConditionalIndependencies(grafo_exemplo)
+```
+
+

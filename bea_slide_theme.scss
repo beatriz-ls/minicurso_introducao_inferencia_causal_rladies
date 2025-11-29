@@ -128,7 +128,7 @@ hr {
 // slide quote 
 
 .fullscreen-colored {
-  background-color: $petrol-rose !important;
+  background-color: $rose !important;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -150,8 +150,9 @@ hr {
 .fullscreen-colored h3,
 .fullscreen-colored p {
   margin: 0;
-  font-size: 2.5em;
-  color: $purple;
+  font-size: 2.3em;
+  font-family: $font-family-serif;
+  color: $light-rose;
 }
 
 

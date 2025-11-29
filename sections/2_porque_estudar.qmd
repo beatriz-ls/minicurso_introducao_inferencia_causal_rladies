@@ -65,7 +65,7 @@ kable(tbl, caption = "Frequência conjunta das variáveis $Z$, $T$ e $C$")
 <hr>
   
 ::: sanchez-font
-::: red-text
+::: purple-text
 Análise Estratificada
 :::
 :::
@@ -96,7 +96,7 @@ Podemos afirmar que tratamento é efetivo na recuperação do paciente?
 <hr>
   
 ::: sanchez-font
-::: red-text
+::: purple-text
 Análise Agregada
 :::
 :::
@@ -120,7 +120,7 @@ Sem estratificar por $Z$, a frequência de recuperação é maior entre aqueles 
 :::
 :::
 :::
-  
+
 ------------------------------------------------------------------------
   
 [Porque estudar Inferência Causal?]{.slide-title}
@@ -130,7 +130,7 @@ Sem estratificar por $Z$, a frequência de recuperação é maior entre aqueles 
 <hr>
   
 ::: sanchez-font
-::: red-text
+::: purple-text
 Conflito nas Conclusões
 :::
 :::
@@ -170,3 +170,98 @@ Conflito nas Conclusões
 :::
 :::
 :::
+
+------------------------------------------------------------------------
+  
+[Porque estudar Inferência Causal?]{.slide-title}
+
+[Simulação de um caso geral]{.custom-subtitle2}
+
+<hr>
+
+```{r simulação, warning=FALSE, echo=TRUE}
+# Simulação de Confundimento em Estudo Observacional
+n <- 1000 
+dados_observacionais <- tibble(
+  # Variável de confusão (ex: gravidade da doença)
+  gravidade_doenca = rbinom(n, 1, 0.5),
+  
+  # Probabilidade de receber tratamento depende da gravidade
+  prob_tratamento = case_when(
+    gravidade_doenca == 1 ~ 0.75,  # Casos graves: 75% chance de tratamento
+    gravidade_doenca == 0 ~ 0.25   # Casos leves: 25% chance de tratamento
+  ),
+  
+  # Tratamento atribuído (não randomizado)
+  recebeu_tratamento = rbinom(n, 1, prob_tratamento),
+  
+  # Desfecho: afetado pela gravidade + ruído aleatório
+  resultado_saude = gravidade_doenca + rnorm(n)
+) |> select(-prob_tratamento)
+
+```
+
+------------------------------------------------------------------------
+  
+[Porque estudar Inferência Causal?]{.slide-title}
+
+[Simulação de um caso geral]{.custom-subtitle2}
+
+<hr>
+
+```{r sim output, include=TRUE, echo=FALSE}
+dados_observacionais
+```
+
+------------------------------------------------------------------------
+  
+[Porque estudar Inferência Causal?]{.slide-title}
+
+[Simulação de um caso geral]{.custom-subtitle2}
+
+<hr>
+
+```{r reg sim ingenuo, echo=TRUE}
+model1 <-lm(resultado_saude ~ recebeu_tratamento, data = dados_observacionais)
+model1$coef
+```
+
+
+```{r reg sim esperto, echo=TRUE}
+model2 <- lm(resultado_saude ~ recebeu_tratamento + gravidade_doenca, data = dados_observacionais)
+model2$coef
+```
+
+::: {.callout-important title="Conclusão"}
+**Efeito da gravidade:** 1.055 (muito forte)
+
+**Efeito REAL do tratamento:** apenas 0.028 (praticamente zero)
+:::
+
+------------------------------------------------------------------------
+  
+[Porque estudar Inferência Causal?]{.slide-title}
+
+[Simulação de um caso geral]{.custom-subtitle2}
+
+<hr>
+
+```{r sim agrupamento, echo=TRUE}
+dados_observacionais |>
+  group_by(recebeu_tratamento) |>
+  summarise(media_resultado = mean(resultado_saude))
+```
+
+```{r diferença média, echo=TRUE}
+dados_observacionais |>
+  group_by(recebeu_tratamento) |>
+  summarise(media_resultado = mean(resultado_saude)) |>
+  pivot_wider(
+    names_from = recebeu_tratamento, 
+    values_from = media_resultado,  
+    names_prefix = "tratamento_"
+  ) |>
+  summarise(diferenca_media = tratamento_1 - tratamento_0)
+```
+
+
