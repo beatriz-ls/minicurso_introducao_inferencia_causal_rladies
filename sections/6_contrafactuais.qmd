@@ -12,7 +12,7 @@ format:
 
 ## {#backdoor data-menu-title="Identificação}
 
-[Indentificação causal]{.slide-title}
+[Identificação causal]{.slide-title}
 
 [Critério Backdoor]{.custom-subtitle2}
 
@@ -23,15 +23,16 @@ format:
 
 ::: sanchez-font
 ::: purple-text
-Definição
+**Definição**
 :::
 :::
 
-Caminho backdoor é qualquer caminho entre X e Y que: \
+Caminho backdoor ou caminho de porta dos fundos é qualquer caminho **não causal** entre X(Tratamento) e Y(Resultado): \
 
-- Começa com uma seta **entrando** em X \
+- Não é o caminho de interesse, pois não demonstra a **real associação** entre X e Y  \
 
-- Pode conter confundidores \
+- Pode conter **confundidores** \
+
 
 :::
 
@@ -39,7 +40,7 @@ Caminho backdoor é qualquer caminho entre X e Y que: \
 
 ::: sanchez-font
 ::: purple-text
-Exemplo
+**Exemplo**
 :::
 :::
 
@@ -91,7 +92,7 @@ Um conjunto Z satisfaz o critério backdoor se:
 
 ## {#backdoor data-menu-title="Identificação}
 
-[Indentificação causal]{.slide-title}
+[Identificação causal]{.slide-title}
 
 [Critério Backdoor: Exemplo]{.custom-subtitle2}
 
@@ -105,11 +106,15 @@ Um conjunto Z satisfaz o critério backdoor se:
 
 Será que café causa câncer de pulmão?
 
-**Variáveis:**
-- Coffee: Consumo de café
-- Cancer: Câncer de pulmão  
-- Smoking: Tabagismo
-- Addictive: Comportamento viciante
+**Variáveis:** \
+
+- Coffee: Consumo de café \
+
+- Cancer: Câncer de pulmão \
+
+- Smoking: Tabagismo \
+
+- Addictive: Comportamento viciante \
 
 **Hipótese:** Comportamento viciante é confundidor!
 
@@ -117,7 +122,7 @@ Será que café causa câncer de pulmão?
 
 ## {#backdoor data-menu-title="Identificação}
 
-[Indentificação causal]{.slide-title}
+[Identificação causal]{.slide-title}
 
 [Critério Backdoor: Exemplo]{.custom-subtitle2}
 
@@ -300,6 +305,12 @@ ggdag(grafo, layout = "circle") +
 ::: vertical-center
 
 ::: sanchez-font
+::: purple-text
+**Pergunta**
+:::
+:::
+
+::: sanchez-font
 ::: red-text
 Entre as pessoas tratadas e curadas, seria mais comum curar ou não curar caso elas não tivessem sido tratadas?
 :::
@@ -326,19 +337,21 @@ Entre as pessoas tratadas e curadas, seria mais comum curar ou não curar caso e
 ::: vertical-center
 
 ::: sanchez-font
-Contrafactual:
+::: purple-text
+**Contrafactual**
+:::
+:::
 
-::: red-text
 Entre as pessoas tratadas e curadas, seria mais comum curar ou não curar caso elas não tivessem sido tratadas?
+
+
+::: sanchez-font
+::: purple-text
+**Intervenção**
+:::
 :::
 
-Intervenção:
-
-::: red-text
 Entre pessoas tratadas, seria mais comum curar ou não curar?
-:::
-
-:::
 
 :::
 
@@ -387,7 +400,7 @@ Cria uma pseudopopulação onde o tratamento é independente das covariáveis
 ::: {.column width="50%"}
 ::: sanchez-font
 ::: purple-text
-Fórmula dos Pesos
+**Fórmula dos Pesos**
 :::
 :::
 
@@ -397,7 +410,8 @@ $$
 w_I
 $$
 
-Intuição:
+**Intuição:**
+
 
   - Peso alto: Indivíduo "improvável" em seu grupo
 
@@ -408,7 +422,6 @@ Intuição:
 ::: {.column width="50%"}
 ```{r exemplo peso, echo=FALSE, message=FALSE, warning=FALSE}
 
-# Exemplo de pesos
 exemplo <- data.frame(
   Indivíduo = 1:6,
   Grupo = c("Tratado", "Tratado", "Tratado", "Controle", "Controle", "Controle"),
@@ -416,7 +429,9 @@ exemplo <- data.frame(
   Peso = c(1.11, 1.43, 1.25, 1.25, 1.43, 1.11)
 )
 
-knitr::kable(exemplo, caption = "Exemplo de Cálculo de Pesos")
+knitr::kable(exemplo, 
+             caption = "Exemplo de Cálculo de Pesos",
+             align = "c")  # "c" = center para todas as colunas
 ```
 :::
 :::

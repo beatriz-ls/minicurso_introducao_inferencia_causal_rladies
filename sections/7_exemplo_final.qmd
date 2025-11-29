@@ -93,7 +93,7 @@ Because we’re using simulated data, we’ll have direct access to an outcome v
 
 -------------------------------------------------------------------
 
-##  {#dados data-menu-title="Dados"}
+##  {#dados3 data-menu-title="Dados"}
 
 [Rede de mosquitos e Risco de Malária]{.slide-title}
 
@@ -103,13 +103,13 @@ Because we’re using simulated data, we’ll have direct access to an outcome v
 # Distribuição do risco de malária por uso de mosquiteiro
 net_data |>
   ggplot(aes(malaria_risk, fill = net)) +
-  geom_density(color = NA, alpha = .8)
+  geom_density(color = NA, alpha = 0.8)
 
 ```
 
 -------------------------------------------------------------------
 
-##  {#dados data-menu-title="Dados"}
+##  {#dados4 data-menu-title="Dados"}
 
 [Rede de mosquitos e Risco de Malária]{.slide-title}
 
@@ -129,7 +129,7 @@ Diferença média ingênua: quem usa mosquiteiro tem risco 16.4 pontos menor. Po
 
 -------------------------------------------------------------------
 
-##  {#dados data-menu-title="Dados"}
+##  {#dados5 data-menu-title="Dados"}
 
 [Rede de mosquitos e Risco de Malária]{.slide-title}
 
@@ -245,7 +245,7 @@ Conjunto mínimo de ajuste: {health, income, temperature}. Suficiente para bloqu
 
 10 caminhos totais: 1 causal direto + 9 de confundimento. 2 já fechados naturalmente (colidores).
 :::
-:::
+
 
 -------------------------------------------------------------------
 
