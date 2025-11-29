@@ -26,3 +26,24 @@ format:
 -   Materiais de estudo notórios
 -   Referências
 :::
+ 
+------------------------------------------------------------------------
+
+[Bibliotecas]{.slide-title}
+
+<hr>
+
+```{r install_packages, echo=TRUE, eval=FALSE}
+install.packages("tidyverse")
+install.packages("knitr")
+install.packages("dagitty")
+install.packages("ggdag")
+install.packages("ggplot2")
+
+library(tidyverse)
+library(knitr)
+library(dagitty)
+library(ggdag)
+library(ggplot2)
+```
+

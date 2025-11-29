@@ -180,7 +180,7 @@ Qual é a probabilidade de que um indivíduo selecionado aleatoriamente da popul
 
 -   Capta:
 
-    -   Efeito direto: $C \rightarrow T$;
+    -   Efeito direto: $T \rightarrow C$;
     -   Efeito indireto via **Z** (Confundidor);
 
 -   Calculando:
@@ -234,12 +234,11 @@ O Problema Fundamental da Inferência Causal
 
 <hr>
 
+::: {.slide style="font-size: 0.85em;"}
 ::: columns
 ::: {.column width="50%"}
-::: sanchez-font
-::: purple-text
+::: {.sanchez-font .purple-text}
 **Dados de experimentos completamente randomizados**
-:::
 :::
 
 Podemos realmente fazer: \
@@ -251,14 +250,14 @@ Podemos realmente fazer: \
 :::
 
 ::: {.column width="50%"}
-::: sanchez-font
-::: purple-text
+::: {.sanchez-font .purple-text}
 **Dados Observacionais**
-:::
 :::
 
 Apenas observamos: \ 
+
 - $E[C | T=1]$ (quem escolheu tratar) \ 
+
 - $E[C | T=0]$ (quem escolheu não tratar) \
 
 **Mas**: $E[C | T=t] \neq E[C | do(T=t)]$
@@ -275,6 +274,7 @@ $E[C | T=1]$ = $$E[C | do(T=1)] + \text{Víes de confusão} $$
 $$E[C \mid do(T=t)] = \sum_{z} E[C \mid T=t, Z=z] \cdot P(Z=z)$$
 
 :::
+::: 
 
 
 ------------------------------------------------------------------------
@@ -343,10 +343,10 @@ $$\mathbb{P}_1(C = i, Z = j|do(T = k)) = \mathbb{P}(Z = j)\mathbb{P}(C = i|T = k
 
 Assim,
 
-$$\mathbb{P}_1(C = 1|do(T = 1)) = \mathbb{P}_1(C = 1, Z = 0|do(T = 1)) + \mathbb{P}_1(C = 1, Z = 1|do(T = 1)) \\
+$$\mathbb{P}_1(C = 1|do(T = 1)) = \mathbb{P}_1(C = 1, Z = 0|do(T = 1)) + \mathbb{P}_1(C = 1, Z = 1|do(T = 1))
 \approx 0.83$$
 
-$$\mathbb{P}_1(C = 1|do(T = 0)) = \mathbb{P}_1(C = 1, Z = 0|do(T = 0)) + \mathbb{P}_1(C = 1, Z = 1|do(T = 0)) \\
+$$\mathbb{P}_1(C = 1|do(T = 0)) = \mathbb{P}_1(C = 1, Z = 0|do(T = 0)) + \mathbb{P}_1(C = 1, Z = 1|do(T = 0))
 \approx 0.78$$
 
 Calculando:
@@ -368,7 +368,7 @@ $$
 :::body-text-s
 
 $$
-P_0(C = i, Z = j \mid do(T = k)) = P(Z = j \mid T = k)P(C = i \mid T = k, Z = j)
+P_2(C = i, Z = j \mid do(T = k)) = P(Z = j \mid T = k)P(C = i \mid T = k, Z = j)
 $$
 Assim,
 

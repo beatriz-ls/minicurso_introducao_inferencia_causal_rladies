@@ -15,22 +15,15 @@ format:
 ::: {.column width="60%" style="margin-left: 40%;"}
 
 ::: {.custom-subtitle style="color: #355070;"}
-APRENDIZADO CAUSAL
-:::
-
-::: {.custom-subtitle2}
-Um guia inicial
+Sobre mim
 :::
 
 <br>
 
-::: {.body-text-m}
-Sobre mim
-:::
-
 - Meu nome é **Beatriz Lima Silveira**  
-- Estudante da **UFES** e membro **R-Ladies Vitória**  
-- Integrante do **DaSLab**  
+- 24 anos
+- Finalista no curso de **Estatística** na **Universidade Federal do Espirito Santo** e membro **R-Ladies Vitória**  
+- Integrante do **Laboratório de Ciencia de Dados (DaSLab)**  
 - GitHub: <https://github.com/beatriz-ls>  
 - LinkedIn: <https://www.linkedin.com/in/beatriz-ls/>
 
@@ -38,7 +31,3 @@ Sobre mim
 ::: {.column width="0%"}
 :::
 :::::
-
-::: footer
-Slides disponíveis em **GitHub**
-:::

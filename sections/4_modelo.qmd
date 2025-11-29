@@ -376,7 +376,7 @@ A D-separação é uma regra formal para determinar, a partir do DAG, quando doi
 Regra Geral
 :::
 :::
-Um caminho entre X e Y está bloqueado por Z se o caminho contiver:
+Um caminho entre X e Y está bloqueado por Z se o caminho conter:
 
 - Um não-colisor que está sendo condicionado, OU
 
