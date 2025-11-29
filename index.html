@@ -201,31 +201,26 @@
 <div class="column" style="width:50%;">
 <p><span class="custom-subtitle3">Beatriz Lima Silveira</span><br></p>
 </div><div class="column" style="width:50%;">
-<p><span class="custom-subtitle3">R-Ladies+ Vitória</span><br><span class="custom-subtitle3">Universidade Federal do Espiríto Santo</span><br><span class="custom-subtitle3">Laboratório de Data Science (DaSLab)</span></p>
+<p><span class="custom-subtitle3">Universidade Federal do Espiríto Santo</span> <br><span class="custom-subtitle3">Laboratório de Data Science (DaSLab)</span> <br><span class="custom-subtitle3">R-Ladies + Vitoria</span></p>
 </div></div>
-<p><br></p>
-<div class="title-footer">
-<p>Slides disponíveis em <a href="https://github.com/beatriz-ls/minicurso_introducao_inferencia_causal_rladies">GitHub</a></p>
+<div style="text-align: center; margin-top: 20px;">
+<p><span class="custom-subtitle3">Slides em: <a href="https://github.com/beatriz-ls/minicurso_introducao_inferencia_causal_rladies" class="uri">https://github.com/beatriz-ls/minicurso_introducao_inferencia_causal_rladies</a></span></p>
 </div>
+<p><br></p>
 </section><section id="section" class="slide level2 title" data-background-image="img/profile.jpeg" data-background-size="35%" data-background-position="left 10% center" data-background-color="#FAF0F2"><h2></h2>
 <div class="columns">
 <div class="column" style="margin-left: 40%;">
 <div class="custom-subtitle" style="color: #355070;">
-<p>APRENDIZADO CAUSAL</p>
-</div>
-<div class="custom-subtitle2">
-<p>Um guia inicial</p>
-</div>
-<p><br></p>
-<div class="body-text-m">
 <p>Sobre mim</p>
 </div>
+<p><br></p>
 <ul>
 <li>Meu nome é <strong>Beatriz Lima Silveira</strong><br>
 </li>
-<li>Estudante da <strong>UFES</strong> e membro <strong>R-Ladies Vitória</strong><br>
+<li>24 anos</li>
+<li>Finalista no curso de <strong>Estatística</strong> na <strong>Universidade Federal do Espirito Santo</strong> e membro <strong>R-Ladies Vitória</strong><br>
 </li>
-<li>Integrante do <strong>DaSLab</strong><br>
+<li>Integrante do <strong>Laboratório de Ciencia de Dados (DaSLab)</strong><br>
 </li>
 <li>GitHub: <a href="https://github.com/beatriz-ls" class="uri">https://github.com/beatriz-ls</a><br>
 </li>
@@ -235,9 +230,6 @@
 </div><div class="column" style="width:0%;">
 
 </div></div>
-<div class="footer">
-<p>Slides disponíveis em <strong>GitHub</strong></p>
-</div>
 </section><section id="topicos" class="slide level2" data-menu-title="Tópicos"><h2></h2>
 <p><span class="slide-title">Tópicos</span></p>
 <hr>
@@ -252,6 +244,22 @@
 <li>Materiais de estudo notórios</li>
 <li>Referências</li>
 </ul>
+</div>
+</section><section id="bibliotecas" class="slide level2" data-menu-title="Bibliotecas"><h2></h2>
+<p><span class="slide-title">Bibliotecas</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-2"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"knitr"</span>)</span>
+<span id="cb1-3"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"dagitty"</span>)</span>
+<span id="cb1-4"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"ggdag"</span>)</span>
+<span id="cb1-5"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb1-6"><a href=""></a></span>
+<span id="cb1-7"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-8"><a href=""></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-9"><a href=""></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb1-10"><a href=""></a><span class="fu">library</span>(ggdag)</span>
+<span id="cb1-11"><a href=""></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="porque-estudar" class="slide level2" data-menu-title="Porque estudar Inferência Causal?"><h2></h2>
 <p><span class="slide-title">Porque estudar Inferência Causal?</span></p>
@@ -416,24 +424,24 @@
 <p><span class="custom-subtitle2">Simulação de um caso geral</span></p>
 <hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co"># Simulação de Confundimento em Estudo Observacional</span></span>
-<span id="cb1-2"><a href=""></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span> </span>
-<span id="cb1-3"><a href=""></a>dados_observacionais <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb1-4"><a href=""></a>  <span class="co"># Variável de confusão (ex: gravidade da doença)</span></span>
-<span id="cb1-5"><a href=""></a>  <span class="at">gravidade_doenca =</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.5</span>),</span>
-<span id="cb1-6"><a href=""></a>  </span>
-<span id="cb1-7"><a href=""></a>  <span class="co"># Probabilidade de receber tratamento depende da gravidade</span></span>
-<span id="cb1-8"><a href=""></a>  <span class="at">prob_tratamento =</span> <span class="fu">case_when</span>(</span>
-<span id="cb1-9"><a href=""></a>    gravidade_doenca <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="fl">0.75</span>,  <span class="co"># Casos graves: 75% chance de tratamento</span></span>
-<span id="cb1-10"><a href=""></a>    gravidade_doenca <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="fl">0.25</span>   <span class="co"># Casos leves: 25% chance de tratamento</span></span>
-<span id="cb1-11"><a href=""></a>  ),</span>
-<span id="cb1-12"><a href=""></a>  </span>
-<span id="cb1-13"><a href=""></a>  <span class="co"># Tratamento atribuído (não randomizado)</span></span>
-<span id="cb1-14"><a href=""></a>  <span class="at">recebeu_tratamento =</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, prob_tratamento),</span>
-<span id="cb1-15"><a href=""></a>  </span>
-<span id="cb1-16"><a href=""></a>  <span class="co"># Desfecho: afetado pela gravidade + ruído aleatório</span></span>
-<span id="cb1-17"><a href=""></a>  <span class="at">resultado_saude =</span> gravidade_doenca <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb1-18"><a href=""></a>) <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="sc">-</span>prob_tratamento)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="co"># Simulação de Confundimento em Estudo Observacional</span></span>
+<span id="cb2-2"><a href=""></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span> </span>
+<span id="cb2-3"><a href=""></a>dados_observacionais <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb2-4"><a href=""></a>  <span class="co"># Variável de confusão (ex: gravidade da doença)</span></span>
+<span id="cb2-5"><a href=""></a>  <span class="at">gravidade_doenca =</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.5</span>),</span>
+<span id="cb2-6"><a href=""></a>  </span>
+<span id="cb2-7"><a href=""></a>  <span class="co"># Probabilidade de receber tratamento depende da gravidade</span></span>
+<span id="cb2-8"><a href=""></a>  <span class="at">prob_tratamento =</span> <span class="fu">case_when</span>(</span>
+<span id="cb2-9"><a href=""></a>    gravidade_doenca <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="fl">0.75</span>,  <span class="co"># Casos graves: 75% chance de tratamento</span></span>
+<span id="cb2-10"><a href=""></a>    gravidade_doenca <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="fl">0.25</span>   <span class="co"># Casos leves: 25% chance de tratamento</span></span>
+<span id="cb2-11"><a href=""></a>  ),</span>
+<span id="cb2-12"><a href=""></a>  </span>
+<span id="cb2-13"><a href=""></a>  <span class="co"># Tratamento atribuído (não randomizado)</span></span>
+<span id="cb2-14"><a href=""></a>  <span class="at">recebeu_tratamento =</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, prob_tratamento),</span>
+<span id="cb2-15"><a href=""></a>  </span>
+<span id="cb2-16"><a href=""></a>  <span class="co"># Desfecho: afetado pela gravidade + ruído aleatório</span></span>
+<span id="cb2-17"><a href=""></a>  <span class="at">resultado_saude =</span> gravidade_doenca <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb2-18"><a href=""></a>) <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="sc">-</span>prob_tratamento)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section class="slide level2"><p><span class="slide-title">Porque estudar Inferência Causal?</span></p>
 <p><span class="custom-subtitle2">Simulação de um caso geral</span></p>
@@ -443,16 +451,16 @@
 <pre><code># A tibble: 1,000 × 3
    gravidade_doenca recebeu_tratamento resultado_saude
               &lt;int&gt;              &lt;int&gt;           &lt;dbl&gt;
- 1                0                  0         -0.0740
- 2                1                  1          1.69  
- 3                1                  1         -1.97  
- 4                1                  1          1.44  
- 5                0                  0         -1.45  
- 6                0                  1         -1.08  
- 7                1                  1          0.201 
- 8                0                  1          0.993 
- 9                0                  0          0.884 
-10                1                  1          1.57  
+ 1                0                  0           0.920
+ 2                1                  1           3.15 
+ 3                1                  1           0.546
+ 4                0                  0          -1.41 
+ 5                0                  1          -0.286
+ 6                1                  1           1.51 
+ 7                1                  0           0.751
+ 8                1                  1           0.296
+ 9                0                  0          -0.764
+10                1                  0           1.41 
 # ℹ 990 more rows</code></pre>
 </div>
 </div>
@@ -460,19 +468,19 @@
 <p><span class="custom-subtitle2">Simulação de um caso geral</span></p>
 <hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>model1 <span class="ot">&lt;-</span><span class="fu">lm</span>(resultado_saude <span class="sc">~</span> recebeu_tratamento, <span class="at">data =</span> dados_observacionais)</span>
-<span id="cb3-2"><a href=""></a>model1<span class="sc">$</span>coef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>model1 <span class="ot">&lt;-</span><span class="fu">lm</span>(resultado_saude <span class="sc">~</span> recebeu_tratamento, <span class="at">data =</span> dados_observacionais)</span>
+<span id="cb4-2"><a href=""></a>model1<span class="sc">$</span>coef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       (Intercept) recebeu_tratamento 
-         0.2458593          0.4669042 </code></pre>
+         0.2776988          0.5383836 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(resultado_saude <span class="sc">~</span> recebeu_tratamento <span class="sc">+</span> gravidade_doenca, <span class="at">data =</span> dados_observacionais)</span>
-<span id="cb5-2"><a href=""></a>model2<span class="sc">$</span>coef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(resultado_saude <span class="sc">~</span> recebeu_tratamento <span class="sc">+</span> gravidade_doenca, <span class="at">data =</span> dados_observacionais)</span>
+<span id="cb6-2"><a href=""></a>model2<span class="sc">$</span>coef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       (Intercept) recebeu_tratamento   gravidade_doenca 
-       -0.01993337        -0.08468702         1.04852070 </code></pre>
+        0.02547917         0.04698668         0.96473992 </code></pre>
 </div>
 </div>
 <div title="Conclusão">
@@ -495,32 +503,32 @@
 <p><span class="custom-subtitle2">Simulação de um caso geral</span></p>
 <hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>dados_observacionais <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a href=""></a>  <span class="fu">group_by</span>(recebeu_tratamento) <span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">media_resultado =</span> <span class="fu">mean</span>(resultado_saude))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>dados_observacionais <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href=""></a>  <span class="fu">group_by</span>(recebeu_tratamento) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">media_resultado =</span> <span class="fu">mean</span>(resultado_saude))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   recebeu_tratamento media_resultado
                &lt;int&gt;           &lt;dbl&gt;
-1                  0           0.246
-2                  1           0.713</code></pre>
+1                  0           0.278
+2                  1           0.816</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>dados_observacionais <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href=""></a>  <span class="fu">group_by</span>(recebeu_tratamento) <span class="sc">|&gt;</span></span>
-<span id="cb9-3"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">media_resultado =</span> <span class="fu">mean</span>(resultado_saude)) <span class="sc">|&gt;</span></span>
-<span id="cb9-4"><a href=""></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb9-5"><a href=""></a>    <span class="at">names_from =</span> recebeu_tratamento, </span>
-<span id="cb9-6"><a href=""></a>    <span class="at">values_from =</span> media_resultado,  </span>
-<span id="cb9-7"><a href=""></a>    <span class="at">names_prefix =</span> <span class="st">"tratamento_"</span></span>
-<span id="cb9-8"><a href=""></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb9-9"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">diferenca_media =</span> tratamento_1 <span class="sc">-</span> tratamento_0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>dados_observacionais <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href=""></a>  <span class="fu">group_by</span>(recebeu_tratamento) <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">media_resultado =</span> <span class="fu">mean</span>(resultado_saude)) <span class="sc">|&gt;</span></span>
+<span id="cb10-4"><a href=""></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb10-5"><a href=""></a>    <span class="at">names_from =</span> recebeu_tratamento, </span>
+<span id="cb10-6"><a href=""></a>    <span class="at">values_from =</span> media_resultado,  </span>
+<span id="cb10-7"><a href=""></a>    <span class="at">names_prefix =</span> <span class="st">"tratamento_"</span></span>
+<span id="cb10-8"><a href=""></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb10-9"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">diferenca_media =</span> tratamento_1 <span class="sc">-</span> tratamento_0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   diferenca_media
             &lt;dbl&gt;
-1           0.467</code></pre>
+1           0.538</code></pre>
 </div>
 </div>
 </section><section id="escada" class="slide level2" data-menu-title="Escada da Causalidade"><h2></h2>
@@ -631,22 +639,22 @@ f(v_1, \dots, v_n) = \prod_{i=1}^{n} g_i(v_i, \mathrm{Pa}(v_i)), \quad \text{e}
 </div>
 <div id="tabset-1-2">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="fu">library</span>(dagitty)</span>
-<span id="cb11-2"><a href=""></a><span class="fu">library</span>(ggdag)</span>
-<span id="cb11-3"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb11-4"><a href=""></a></span>
-<span id="cb11-5"><a href=""></a><span class="co"># Construindo o Grafo</span></span>
-<span id="cb11-6"><a href=""></a>grafo <span class="ot">&lt;-</span> <span class="fu">dagitty</span>(<span class="st">"dag {</span></span>
-<span id="cb11-7"><a href=""></a><span class="st">V1 -&gt; V2</span></span>
-<span id="cb11-8"><a href=""></a><span class="st">V2 -&gt; V3</span></span>
-<span id="cb11-9"><a href=""></a><span class="st">}"</span>)</span>
-<span id="cb11-10"><a href=""></a><span class="co"># Exibir a figura do grafo</span></span>
-<span id="cb11-11"><a href=""></a><span class="fu">ggdag</span>(grafo, <span class="at">layout =</span> <span class="st">"circle"</span>) <span class="sc">+</span></span>
-<span id="cb11-12"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb11-13"><a href=""></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb11-14"><a href=""></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb11-15"><a href=""></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb11-16"><a href=""></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb12-2"><a href=""></a><span class="fu">library</span>(ggdag)</span>
+<span id="cb12-3"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb12-4"><a href=""></a></span>
+<span id="cb12-5"><a href=""></a><span class="co"># Construindo o Grafo</span></span>
+<span id="cb12-6"><a href=""></a>grafo <span class="ot">&lt;-</span> <span class="fu">dagitty</span>(<span class="st">"dag {</span></span>
+<span id="cb12-7"><a href=""></a><span class="st">V1 -&gt; V2</span></span>
+<span id="cb12-8"><a href=""></a><span class="st">V2 -&gt; V3</span></span>
+<span id="cb12-9"><a href=""></a><span class="st">}"</span>)</span>
+<span id="cb12-10"><a href=""></a><span class="co"># Exibir a figura do grafo</span></span>
+<span id="cb12-11"><a href=""></a><span class="fu">ggdag</span>(grafo, <span class="at">layout =</span> <span class="st">"circle"</span>) <span class="sc">+</span></span>
+<span id="cb12-12"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-13"><a href=""></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-14"><a href=""></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-15"><a href=""></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb12-16"><a href=""></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -689,22 +697,22 @@ f(v_1, \dots, v_n) = \prod_{i=1}^{n} g_i(v_i, \mathrm{Pa}(v_i)), \quad \text{e}
 </div>
 <div id="tabset-2-2">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="fu">library</span>(dagitty)</span>
-<span id="cb12-2"><a href=""></a><span class="fu">library</span>(ggdag)</span>
-<span id="cb12-3"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb12-4"><a href=""></a></span>
-<span id="cb12-5"><a href=""></a><span class="co"># Construindo o Grafo</span></span>
-<span id="cb12-6"><a href=""></a>grafo <span class="ot">&lt;-</span> <span class="fu">dagitty</span>(<span class="st">"dag {</span></span>
-<span id="cb12-7"><a href=""></a><span class="st">V1 -&gt; V2</span></span>
-<span id="cb12-8"><a href=""></a><span class="st">V1 -&gt; V3</span></span>
-<span id="cb12-9"><a href=""></a><span class="st">}"</span>)</span>
-<span id="cb12-10"><a href=""></a><span class="co"># Exibir a figura do grafo</span></span>
-<span id="cb12-11"><a href=""></a><span class="fu">ggdag</span>(grafo, <span class="at">layout =</span> <span class="st">"circle"</span>) <span class="sc">+</span></span>
-<span id="cb12-12"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb12-13"><a href=""></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb12-14"><a href=""></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb12-15"><a href=""></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb12-16"><a href=""></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb13-2"><a href=""></a><span class="fu">library</span>(ggdag)</span>
+<span id="cb13-3"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb13-4"><a href=""></a></span>
+<span id="cb13-5"><a href=""></a><span class="co"># Construindo o Grafo</span></span>
+<span id="cb13-6"><a href=""></a>grafo <span class="ot">&lt;-</span> <span class="fu">dagitty</span>(<span class="st">"dag {</span></span>
+<span id="cb13-7"><a href=""></a><span class="st">V1 -&gt; V2</span></span>
+<span id="cb13-8"><a href=""></a><span class="st">V1 -&gt; V3</span></span>
+<span id="cb13-9"><a href=""></a><span class="st">}"</span>)</span>
+<span id="cb13-10"><a href=""></a><span class="co"># Exibir a figura do grafo</span></span>
+<span id="cb13-11"><a href=""></a><span class="fu">ggdag</span>(grafo, <span class="at">layout =</span> <span class="st">"circle"</span>) <span class="sc">+</span></span>
+<span id="cb13-12"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb13-13"><a href=""></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb13-14"><a href=""></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb13-15"><a href=""></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb13-16"><a href=""></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -747,22 +755,22 @@ f(v_1, \dots, v_n) = \prod_{i=1}^{n} g_i(v_i, \mathrm{Pa}(v_i)), \quad \text{e}
 </div>
 <div id="tabset-3-2">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">library</span>(dagitty)</span>
-<span id="cb13-2"><a href=""></a><span class="fu">library</span>(ggdag)</span>
-<span id="cb13-3"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb13-4"><a href=""></a></span>
-<span id="cb13-5"><a href=""></a><span class="co"># Construindo o Grafo</span></span>
-<span id="cb13-6"><a href=""></a>grafo <span class="ot">&lt;-</span> <span class="fu">dagitty</span>(<span class="st">"dag {</span></span>
-<span id="cb13-7"><a href=""></a><span class="st">V1 -&gt; V2</span></span>
-<span id="cb13-8"><a href=""></a><span class="st">V3 -&gt; V2</span></span>
-<span id="cb13-9"><a href=""></a><span class="st">}"</span>)</span>
-<span id="cb13-10"><a href=""></a><span class="co"># Exibir a figura do grafo</span></span>
-<span id="cb13-11"><a href=""></a><span class="fu">ggdag</span>(grafo, <span class="at">layout =</span> <span class="st">"circle"</span>) <span class="sc">+</span></span>
-<span id="cb13-12"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb13-13"><a href=""></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb13-14"><a href=""></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb13-15"><a href=""></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb13-16"><a href=""></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb14-2"><a href=""></a><span class="fu">library</span>(ggdag)</span>
+<span id="cb14-3"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb14-4"><a href=""></a></span>
+<span id="cb14-5"><a href=""></a><span class="co"># Construindo o Grafo</span></span>
+<span id="cb14-6"><a href=""></a>grafo <span class="ot">&lt;-</span> <span class="fu">dagitty</span>(<span class="st">"dag {</span></span>
+<span id="cb14-7"><a href=""></a><span class="st">V1 -&gt; V2</span></span>
+<span id="cb14-8"><a href=""></a><span class="st">V3 -&gt; V2</span></span>
+<span id="cb14-9"><a href=""></a><span class="st">}"</span>)</span>
+<span id="cb14-10"><a href=""></a><span class="co"># Exibir a figura do grafo</span></span>
+<span id="cb14-11"><a href=""></a><span class="fu">ggdag</span>(grafo, <span class="at">layout =</span> <span class="st">"circle"</span>) <span class="sc">+</span></span>
+<span id="cb14-12"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb14-13"><a href=""></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb14-14"><a href=""></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb14-15"><a href=""></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb14-16"><a href=""></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -799,7 +807,7 @@ f(v_1, \dots, v_n) = \prod_{i=1}^{n} g_i(v_i, \mathrm{Pa}(v_i)), \quad \text{e}
 <p>Regra Geral</p>
 </div>
 </div>
-<p>Um caminho entre X e Y está bloqueado por Z se o caminho contiver:</p>
+<p>Um caminho entre X e Y está bloqueado por Z se o caminho conter:</p>
 <ul>
 <li><p>Um não-colisor que está sendo condicionado, OU</p></li>
 <li><p>Um colisor que NÃO está sendo condicionado (nem seus descendentes)</p></li>
@@ -839,14 +847,14 @@ f(v_1, \dots, v_n) = \prod_{i=1}^{n} g_i(v_i, \mathrm{Pa}(v_i)), \quad \text{e}
 </div>
 <div id="tabset-4-2">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="co"># Construindo o Grafo</span></span>
-<span id="cb14-2"><a href=""></a>grafo_exemplo <span class="ot">&lt;-</span><span class="fu">dagitty</span>(<span class="st">'dag {</span></span>
-<span id="cb14-3"><a href=""></a><span class="st">    V1 -&gt; V2 &lt;- V4</span></span>
-<span id="cb14-4"><a href=""></a><span class="st">    V2 -&gt; V3 &lt;- V4</span></span>
-<span id="cb14-5"><a href=""></a><span class="st">}'</span>)</span>
-<span id="cb14-6"><a href=""></a></span>
-<span id="cb14-7"><a href=""></a><span class="co"># Visualizando</span></span>
-<span id="cb14-8"><a href=""></a><span class="fu">ggdag</span>(grafo_exemplo) <span class="sc">+</span> <span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="co"># Construindo o Grafo</span></span>
+<span id="cb15-2"><a href=""></a>grafo_exemplo <span class="ot">&lt;-</span><span class="fu">dagitty</span>(<span class="st">'dag {</span></span>
+<span id="cb15-3"><a href=""></a><span class="st">    V1 -&gt; V2 &lt;- V4</span></span>
+<span id="cb15-4"><a href=""></a><span class="st">    V2 -&gt; V3 &lt;- V4</span></span>
+<span id="cb15-5"><a href=""></a><span class="st">}'</span>)</span>
+<span id="cb15-6"><a href=""></a></span>
+<span id="cb15-7"><a href=""></a><span class="co"># Visualizando</span></span>
+<span id="cb15-8"><a href=""></a><span class="fu">ggdag</span>(grafo_exemplo) <span class="sc">+</span> <span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -902,27 +910,27 @@ f(v_1, \dots, v_n) = \prod_{i=1}^{n} g_i(v_i, \mathrm{Pa}(v_i)), \quad \text{e}
 <p><span class="custom-subtitle2">D-separação: Exemplo no R</span></p>
 <hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">library</span>(dagitty)</span>
-<span id="cb15-2"><a href=""></a></span>
-<span id="cb15-3"><a href=""></a><span class="co"># PERGUNTA 1: V1 e V3 são d-separados marginalmente?</span></span>
-<span id="cb15-4"><a href=""></a><span class="fu">dseparated</span>(grafo_exemplo, <span class="st">"V1"</span>, <span class="st">"V3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb16-2"><a href=""></a></span>
+<span id="cb16-3"><a href=""></a><span class="co"># PERGUNTA 1: V1 e V3 são d-separados marginalmente?</span></span>
+<span id="cb16-4"><a href=""></a><span class="fu">dseparated</span>(grafo_exemplo, <span class="st">"V1"</span>, <span class="st">"V3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="co"># PERGUNTA 2: V1 e V3 são d-separados dado V2?</span></span>
-<span id="cb17-2"><a href=""></a><span class="fu">dseparated</span>(grafo_exemplo, <span class="st">"V1"</span>, <span class="st">"V3"</span>, <span class="st">"V2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="co"># PERGUNTA 2: V1 e V3 são d-separados dado V2?</span></span>
+<span id="cb18-2"><a href=""></a><span class="fu">dseparated</span>(grafo_exemplo, <span class="st">"V1"</span>, <span class="st">"V3"</span>, <span class="st">"V2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="co"># PERGUNTA 3: V1 e V3 são d-separados dado V2 e V4?</span></span>
-<span id="cb19-2"><a href=""></a><span class="fu">dseparated</span>(grafo_exemplo, <span class="st">"V1"</span>, <span class="st">"V3"</span>, <span class="fu">c</span>(<span class="st">"V2"</span>, <span class="st">"V4"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="co"># PERGUNTA 3: V1 e V3 são d-separados dado V2 e V4?</span></span>
+<span id="cb20-2"><a href=""></a><span class="fu">dseparated</span>(grafo_exemplo, <span class="st">"V1"</span>, <span class="st">"V3"</span>, <span class="fu">c</span>(<span class="st">"V2"</span>, <span class="st">"V4"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="co"># Isso mostra TODAS as relações de independência que o grafo implica</span></span>
-<span id="cb21-2"><a href=""></a><span class="fu">impliedConditionalIndependencies</span>(grafo_exemplo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="co"># Isso mostra TODAS as relações de independência que o grafo implica</span></span>
+<span id="cb22-2"><a href=""></a><span class="fu">impliedConditionalIndependencies</span>(grafo_exemplo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>V1 _||_ V3 | V2, V4
 V1 _||_ V4</code></pre>
@@ -952,23 +960,23 @@ V1 _||_ V4</code></pre>
 </div>
 <div id="tabset-5-2">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">library</span>(dagitty)</span>
-<span id="cb23-2"><a href=""></a><span class="fu">library</span>(ggdag)</span>
-<span id="cb23-3"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb23-4"><a href=""></a></span>
-<span id="cb23-5"><a href=""></a><span class="co"># Construindo o Grafo</span></span>
-<span id="cb23-6"><a href=""></a>grafo <span class="ot">&lt;-</span> <span class="fu">dagitty</span>(<span class="st">"dag {</span></span>
-<span id="cb23-7"><a href=""></a><span class="st">T -&gt; C</span></span>
-<span id="cb23-8"><a href=""></a><span class="st">Z -&gt; C</span></span>
-<span id="cb23-9"><a href=""></a><span class="st">Z -&gt; T</span></span>
-<span id="cb23-10"><a href=""></a><span class="st">}"</span>)</span>
-<span id="cb23-11"><a href=""></a><span class="co"># Exibir a figura do grafo</span></span>
-<span id="cb23-12"><a href=""></a><span class="fu">ggdag</span>(grafo, <span class="at">layout =</span> <span class="st">"circle"</span>) <span class="sc">+</span></span>
-<span id="cb23-13"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb23-14"><a href=""></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb23-15"><a href=""></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb23-16"><a href=""></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb23-17"><a href=""></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb24-2"><a href=""></a><span class="fu">library</span>(ggdag)</span>
+<span id="cb24-3"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb24-4"><a href=""></a></span>
+<span id="cb24-5"><a href=""></a><span class="co"># Construindo o Grafo</span></span>
+<span id="cb24-6"><a href=""></a>grafo <span class="ot">&lt;-</span> <span class="fu">dagitty</span>(<span class="st">"dag {</span></span>
+<span id="cb24-7"><a href=""></a><span class="st">T -&gt; C</span></span>
+<span id="cb24-8"><a href=""></a><span class="st">Z -&gt; C</span></span>
+<span id="cb24-9"><a href=""></a><span class="st">Z -&gt; T</span></span>
+<span id="cb24-10"><a href=""></a><span class="st">}"</span>)</span>
+<span id="cb24-11"><a href=""></a><span class="co"># Exibir a figura do grafo</span></span>
+<span id="cb24-12"><a href=""></a><span class="fu">ggdag</span>(grafo, <span class="at">layout =</span> <span class="st">"circle"</span>) <span class="sc">+</span></span>
+<span id="cb24-13"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb24-14"><a href=""></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb24-15"><a href=""></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb24-16"><a href=""></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb24-17"><a href=""></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1011,23 +1019,23 @@ V1 _||_ V4</code></pre>
 </div>
 <div id="tabset-6-2">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a><span class="fu">library</span>(dagitty)</span>
-<span id="cb24-2"><a href=""></a><span class="fu">library</span>(ggdag)</span>
-<span id="cb24-3"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb24-4"><a href=""></a></span>
-<span id="cb24-5"><a href=""></a><span class="co"># Construindo o Grafo</span></span>
-<span id="cb24-6"><a href=""></a>grafo <span class="ot">&lt;-</span> <span class="fu">dagitty</span>(<span class="st">"dag {</span></span>
-<span id="cb24-7"><a href=""></a><span class="st">T -&gt; C</span></span>
-<span id="cb24-8"><a href=""></a><span class="st">Z -&gt; C</span></span>
-<span id="cb24-9"><a href=""></a><span class="st">T -&gt; Z</span></span>
-<span id="cb24-10"><a href=""></a><span class="st">}"</span>)</span>
-<span id="cb24-11"><a href=""></a><span class="co"># Exibir a figura do grafo</span></span>
-<span id="cb24-12"><a href=""></a><span class="fu">ggdag</span>(grafo, <span class="at">layout =</span> <span class="st">"circle"</span>) <span class="sc">+</span></span>
-<span id="cb24-13"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb24-14"><a href=""></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb24-15"><a href=""></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb24-16"><a href=""></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb24-17"><a href=""></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb25-2"><a href=""></a><span class="fu">library</span>(ggdag)</span>
+<span id="cb25-3"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb25-4"><a href=""></a></span>
+<span id="cb25-5"><a href=""></a><span class="co"># Construindo o Grafo</span></span>
+<span id="cb25-6"><a href=""></a>grafo <span class="ot">&lt;-</span> <span class="fu">dagitty</span>(<span class="st">"dag {</span></span>
+<span id="cb25-7"><a href=""></a><span class="st">T -&gt; C</span></span>
+<span id="cb25-8"><a href=""></a><span class="st">Z -&gt; C</span></span>
+<span id="cb25-9"><a href=""></a><span class="st">T -&gt; Z</span></span>
+<span id="cb25-10"><a href=""></a><span class="st">}"</span>)</span>
+<span id="cb25-11"><a href=""></a><span class="co"># Exibir a figura do grafo</span></span>
+<span id="cb25-12"><a href=""></a><span class="fu">ggdag</span>(grafo, <span class="at">layout =</span> <span class="st">"circle"</span>) <span class="sc">+</span></span>
+<span id="cb25-13"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb25-14"><a href=""></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb25-15"><a href=""></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb25-16"><a href=""></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb25-17"><a href=""></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1060,7 +1068,7 @@ V1 _||_ V4</code></pre>
 <li>
 <p>Capta:</p>
 <ul>
-<li>Efeito direto: <span class="math inline">\(C \rightarrow T\)</span>;</li>
+<li>Efeito direto: <span class="math inline">\(T \rightarrow C\)</span>;</li>
 <li>Efeito indireto via <strong>Z</strong> (Confundidor);</li>
 </ul>
 </li>
@@ -1097,24 +1105,46 @@ f(c \mid do(t = 1)) = \sum_{z} f(z) f(c \mid z, t = 1)
 <p>O Problema Fundamental da Inferência Causal</p>
 </div>
 </section><section class="slide level2"><p><span class="slide-title">Intervenções</span></p>
-<p><span class="custom-subtitle2">Framework de Resultados Potenciais (Rubin)</span></p>
+<p><span class="custom-subtitle2">O Problema Fundamental da Inferência Causal</span></p>
 <hr>
-<div class="body-text-s">
-<p>Para cada indivíduo, existem dois resultados potenciais:<br></p>
-<p><span class="math inline">\(C_1\)</span>: Indicador de cura SE recebesse tratamento<br><span class="math inline">\(C_0\)</span>: Indicador de cura SE não recebesse tratamento<br></p>
-<p>Onde:</p>
+<div class="slide" style="font-size: 0.85em;">
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="sanchez-font purple-text">
+<p><strong>Dados de experimentos completamente randomizados</strong></p>
+</div>
+<p>Podemos realmente fazer:<br>
+- <code>do(T=1)</code> em grupo aleatório<br>
+- <code>do(T=0)</code> em outro grupo<br>
+- Comparar resultados<br></p>
+<p><strong>Temos acesso direto</strong> a <span class="math inline">\(E[C | do(T=t)]\)</span></p>
+</div><div class="column" style="width:50%;">
+<div class="sanchez-font purple-text">
+<p><strong>Dados Observacionais</strong></p>
+</div>
+<p>Apenas observamos: &nbsp;</p>
 <ul>
-<li>
-<span class="math inline">\(C_1, C_0 \in {0, 1}\)</span> (0=não curou, 1=curou)<br>
-</li>
-<li>
-<strong>Importante:</strong> <span class="math inline">\(C_1\)</span> e <span class="math inline">\(C_0\)</span> são potenciais, não observados<br>
-</li>
+<li><p><span class="math inline">\(E[C | T=1]\)</span> (quem escolheu tratar) &nbsp;</p></li>
+<li><p><span class="math inline">\(E[C | T=0]\)</span> (quem escolheu não tratar)<br></p></li>
 </ul>
-<div class="sanchez-font">
-<div class="petrol-rose-text">
-<p>Só observamos um dos resultados potenciais:</p>
-<p><span class="math display">\[ C^{obs} = T \cdot C_1 + (1-T) \cdot C_0 \]</span></p>
+<p><strong>Mas</strong>: <span class="math inline">\(E[C | T=t] \neq E[C | do(T=t)]\)</span></p>
+</div></div>
+<div title="Solução">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Solução</strong></p>
+</div>
+<div class="callout-content">
+<p><code>Problema:</code> Variável Z afeta tanto T quanto C, assim:</p>
+<p><span class="math inline">\(E[C | T=1]\)</span> = <span class="math display">\[E[C | do(T=1)] + \text{Víes de confusão} \]</span></p>
+<p><code>Solução</code>: Condicionando em Variáveis de Confusão</p>
+<p><span class="math display">\[E[C \mid do(T=t)] = \sum_{z} E[C \mid T=t, Z=z] \cdot P(Z=z)\]</span></p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1152,9 +1182,9 @@ E[Y \mid do(X=1)] - E[Y \mid do(X=0)], &amp; \text{se } X \text{ é binário}, \
 <div class="body-text-s">
 <p><span class="math display">\[\mathbb{P}_1(C = i, Z = j|do(T = k)) = \mathbb{P}(Z = j)\mathbb{P}(C = i|T = k, Z = j)\]</span></p>
 <p>Assim,</p>
-<p><span class="math display">\[\mathbb{P}_1(C = 1|do(T = 1)) = \mathbb{P}_1(C = 1, Z = 0|do(T = 1)) + \mathbb{P}_1(C = 1, Z = 1|do(T = 1)) \\
+<p><span class="math display">\[\mathbb{P}_1(C = 1|do(T = 1)) = \mathbb{P}_1(C = 1, Z = 0|do(T = 1)) + \mathbb{P}_1(C = 1, Z = 1|do(T = 1))
 \approx 0.83\]</span></p>
-<p><span class="math display">\[\mathbb{P}_1(C = 1|do(T = 0)) = \mathbb{P}_1(C = 1, Z = 0|do(T = 0)) + \mathbb{P}_1(C = 1, Z = 1|do(T = 0)) \\
+<p><span class="math display">\[\mathbb{P}_1(C = 1|do(T = 0)) = \mathbb{P}_1(C = 1, Z = 0|do(T = 0)) + \mathbb{P}_1(C = 1, Z = 1|do(T = 0))
 \approx 0.78\]</span></p>
 <p>Calculando:</p>
 <p><span class="math display">\[
@@ -1167,7 +1197,7 @@ ACE = E[C \mid do(T = 1)] - E[C \mid do(T = 0)]
 <hr>
 <div class="body-text-s">
 <p><span class="math display">\[
-P_0(C = i, Z = j \mid do(T = k)) = P(Z = j \mid T = k)P(C = i \mid T = k, Z = j)
+P_2(C = i, Z = j \mid do(T = k)) = P(Z = j \mid T = k)P(C = i \mid T = k, Z = j)
 \]</span> Assim,</p>
 <p><span class="math display">\[
 \mathbb{P}_2(C = 1 \mid do(T = 1)) = \mathbb{P}_2(C = 1, Z = 0 \mid do(T = 1)) + \mathbb{P}_2(C = 1, Z = 1 \mid do(T = 1)) \approx 0.78
@@ -1180,19 +1210,32 @@ ACE = E[C \mid do(T = 1)] - E[C \mid do(T = 0)]
 = P_2(C = 1 \mid do(T = 1)) - P_2(C = 1 \mid do(T = 0)) \approx -0.05
 \]</span></p>
 </div>
-</section><section class="slide level2"><p><span class="slide-title">Intervenções</span></p>
-<p><span class="custom-subtitle2">Efeito Causal Médio</span></p>
-<hr>
-<p>Uma vez definido o modelo probabilístico para intervenções e o efeito causal médio, podemos proceder com a inferência causal. Essa inferência geralmente envolve duas etapas fundamentais:</p>
-<ul>
-<li><p><strong>Identificação Causal:</strong> Como expressar o efeito causal em termos da distribuição observacional dos dados?</p></li>
-<li><p><strong>Estimação:</strong> Uma vez estabelecida essa relação, como calcular o efeito causal a partir dos dados disponíveis?</p></li>
-</ul></section><section id="contrafactuais" class="slide level2" data-menu-title="Contrafactuais"><h2></h2>
-<p><span class="slide-title">Introduzindo Contrafactuais</span></p>
-<p><span class="custom-subtitle2">Indagações Contrafactuais</span></p>
+</section><section class="slide level2"><div class="fullscreen-colored">
+<p>Okay, mas como selecionar quais variáveis<br>
+condicionar para calcular o tão querido ATE?</p>
+</div>
+</section><section id="backdoor" class="slide level2" data-menu-title="&quot;Identificação"><h2></h2>
+<p><span class="slide-title">Identificação causal</span></p>
+<p><span class="custom-subtitle2">Critério Backdoor</span></p>
 <hr>
 <div class="columns">
 <div class="column" style="width:50%;">
+<div class="sanchez-font">
+<div class="purple-text">
+<p><strong>Definição</strong></p>
+</div>
+</div>
+<p>Caminho backdoor ou caminho de porta dos fundos é qualquer caminho <strong>não causal</strong> entre X(Tratamento) e Y(Resultado):<br></p>
+<ul>
+<li><p>Não é o caminho de interesse, pois não demonstra a <strong>real associação</strong> entre X e Y<br></p></li>
+<li><p>Pode conter <strong>confundidores</strong><br></p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="sanchez-font">
+<div class="purple-text">
+<p><strong>Exemplo</strong></p>
+</div>
+</div>
 <div class="panel-tabset">
 <ul id="tabset-7" class="panel-tabset-tabby">
 <li><a data-tabby-default="" href="#tabset-7-1">Output</a></li>
@@ -1203,7 +1246,7 @@ ACE = E[C \mid do(T = 1)] - E[C \mid do(T = 0)]
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="index_files/figure-revealjs/dag%20contrafactuais%20img-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
+<figure><p><img data-src="index_files/figure-revealjs/rdag%20exemplo%20backdoor%20output-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
 </figure>
 </div>
 </div>
@@ -1211,29 +1254,198 @@ ACE = E[C \mid do(T = 1)] - E[C \mid do(T = 0)]
 </div>
 <div id="tabset-7-2">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">library</span>(dagitty)</span>
-<span id="cb25-2"><a href=""></a><span class="fu">library</span>(ggdag)</span>
-<span id="cb25-3"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb25-4"><a href=""></a></span>
-<span id="cb25-5"><a href=""></a><span class="co"># Construindo o Grafo</span></span>
-<span id="cb25-6"><a href=""></a>grafo <span class="ot">&lt;-</span> <span class="fu">dagitty</span>(<span class="st">"dag {</span></span>
-<span id="cb25-7"><a href=""></a><span class="st">T -&gt; C</span></span>
-<span id="cb25-8"><a href=""></a><span class="st">Z -&gt; C</span></span>
-<span id="cb25-9"><a href=""></a><span class="st">Z -&gt; T</span></span>
-<span id="cb25-10"><a href=""></a><span class="st">}"</span>)</span>
-<span id="cb25-11"><a href=""></a><span class="co"># Exibir a figura do grafo</span></span>
-<span id="cb25-12"><a href=""></a><span class="fu">ggdag</span>(grafo, <span class="at">layout =</span> <span class="st">"circle"</span>) <span class="sc">+</span></span>
-<span id="cb25-13"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb25-14"><a href=""></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb25-15"><a href=""></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb25-16"><a href=""></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb25-17"><a href=""></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a>backdoor_dag <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
+<span id="cb26-2"><a href=""></a>  Y <span class="sc">~</span> X <span class="sc">+</span> Z,</span>
+<span id="cb26-3"><a href=""></a>  X <span class="sc">~</span> Z,</span>
+<span id="cb26-4"><a href=""></a>  <span class="at">exposure =</span> <span class="st">"X"</span>,</span>
+<span id="cb26-5"><a href=""></a>  <span class="at">outcome =</span> <span class="st">"Y"</span></span>
+<span id="cb26-6"><a href=""></a>)</span>
+<span id="cb26-7"><a href=""></a></span>
+<span id="cb26-8"><a href=""></a><span class="fu">ggdag</span>(backdoor_dag, <span class="at">node_size =</span> <span class="dv">14</span>) <span class="sc">+</span> </span>
+<span id="cb26-9"><a href=""></a>  <span class="fu">theme_dag</span>() <span class="sc">+</span></span>
+<span id="cb26-10"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Caminho Backdoor: X ← Z → Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+<aside class="notes"><p>Um conjunto Z satisfaz o critério backdoor se:</p>
+<ul>
+<li>Nenhum elemento de Z é descendente de X (X ∉ Anc(Z))</li>
+<li>Z bloqueia todos os caminhos backdoor entre X e Y</li>
+<li>Todo caminho que começa com X ← … está bloqueado dado Z</li>
+</ul><style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="backdoor" class="slide level2" data-menu-title="&quot;Identificação"><h2></h2>
+<p><span class="slide-title">Identificação causal</span></p>
+<p><span class="custom-subtitle2">Critério Backdoor: Exemplo</span></p>
+<hr>
+<div class="sanchez-font">
+<div class="purple-text">
+<p><strong>Cenário</strong></p>
+</div>
+</div>
+<p>Será que café causa câncer de pulmão?</p>
+<p><strong>Variáveis:</strong><br></p>
+<ul>
+<li><p>Coffee: Consumo de café<br></p></li>
+<li><p>Cancer: Câncer de pulmão<br></p></li>
+<li><p>Smoking: Tabagismo<br></p></li>
+<li><p>Addictive: Comportamento viciante<br></p></li>
+</ul>
+<p><strong>Hipótese:</strong> Comportamento viciante é confundidor!</p>
+</section><section id="backdoor" class="slide level2" data-menu-title="&quot;Identificação"><h2></h2>
+<p><span class="slide-title">Identificação causal</span></p>
+<p><span class="custom-subtitle2">Critério Backdoor: Exemplo</span></p>
+<hr>
+<div class="panel-tabset">
+<ul id="tabset-8" class="panel-tabset-tabby">
+<li><a data-tabby-default="" href="#tabset-8-1">Code DAG</a></li>
+<li><a href="#tabset-8-2">DAG</a></li>
+<li><a href="#tabset-8-3">Code Caminhos Backdoor</a></li>
+<li><a href="#tabset-8-4">Caminhos Backdoor</a></li>
+<li><a href="#tabset-8-5">Code Adjustments</a></li>
+<li><a href="#tabset-8-6">Caminhos Adjustments</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-8-1">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a>coffee_cancer_dag <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
+<span id="cb27-2"><a href=""></a>  cancer <span class="sc">~</span> smoking,</span>
+<span id="cb27-3"><a href=""></a>  smoking <span class="sc">~</span> addictive,</span>
+<span id="cb27-4"><a href=""></a>  coffee <span class="sc">~</span> addictive,</span>
+<span id="cb27-5"><a href=""></a>  <span class="at">exposure =</span> <span class="st">"coffee"</span>,</span>
+<span id="cb27-6"><a href=""></a>  <span class="at">outcome =</span> <span class="st">"cancer"</span>,</span>
+<span id="cb27-7"><a href=""></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb27-8"><a href=""></a>    <span class="st">"coffee"</span> <span class="ot">=</span> <span class="st">"Coffee"</span>, </span>
+<span id="cb27-9"><a href=""></a>    <span class="st">"cancer"</span> <span class="ot">=</span> <span class="st">"Lung Cancer"</span>, </span>
+<span id="cb27-10"><a href=""></a>    <span class="st">"smoking"</span> <span class="ot">=</span> <span class="st">"Smoking"</span>, </span>
+<span id="cb27-11"><a href=""></a>    <span class="st">"addictive"</span> <span class="ot">=</span> <span class="st">"Addictive </span><span class="sc">\n</span><span class="st">Behavior"</span></span>
+<span id="cb27-12"><a href=""></a>  )</span>
+<span id="cb27-13"><a href=""></a>)</span>
+<span id="cb27-14"><a href=""></a></span>
+<span id="cb27-15"><a href=""></a><span class="fu">ggdag</span>(coffee_cancer_dag, <span class="at">text =</span> <span class="cn">FALSE</span>, <span class="at">use_labels =</span> <span class="st">"label"</span>) <span class="sc">+</span></span>
+<span id="cb27-16"><a href=""></a>  <span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-8-2">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="index_files/figure-revealjs/coffee-cancer-dag-output-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-8-3">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a>coffee_cancer_dag <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href=""></a>  <span class="fu">ggdag_paths</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-8-4">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="index_files/figure-revealjs/coffee-cancer-dag-path-ouput-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-8-5">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="fu">ggdag_adjustment_set</span>(</span>
+<span id="cb29-2"><a href=""></a>  coffee_cancer_dag, </span>
+<span id="cb29-3"><a href=""></a>  <span class="at">use_labels =</span> <span class="st">"label"</span>, </span>
+<span id="cb29-4"><a href=""></a>  <span class="at">text =</span> <span class="cn">FALSE</span></span>
+<span id="cb29-5"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-8-6">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="index_files/figure-revealjs/coffee-cancer-adjustments-ouput-1.png" class="quarto-figure quarto-figure-center" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes"><p>dag_paths() - Análise de Caminhos: O resultado mostra apenas 1 caminho entre Coffee e Lung Cancer: text Coffee ← Addictive Behavior → Smoking → Lung Cancer Status: “open path” → caminho ABERTO (não bloqueado) Isso significa que há fluxo de informação espúria via Addictive Behavior 2. ggdag_adjustment_set() - Soluções: A função identificou DOIS conjuntos de ajuste válidos: Opção 1: Ajustar por {addictive} Bloqueia: Coffee ← Addictive Behavior → Smoking → Lung Cancer Remove o confundidor na raiz Opção 2: Ajustar por {smoking} Bloqueia: Coffee ← Addictive Behavior → Smoking → Lung Cancer Remove o efeito do mediador/consequência O que Significa na Prática: SEM ajuste: Você vê associação espúria entre café e câncer porque: Pessoas com comportamento viciante → bebem mais café + fumam mais → desenvolvem câncer O modelo atribui erroneamente o efeito do fumo ao café COM ajuste (qualquer uma das opções): Você isola o efeito real do café Remove o viés do comportamento viciante A associação observada se aproxima do efeito causal real Por que Duas Opções? Ambas funcionam porque: Addictive Behavior é o confundidor raiz Smoking é o mecanismo através do qual o confundidor opera Controlar qualquer um dos dois quebra o caminho espúrio</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="contrafactuais" class="slide level2" data-menu-title="Contrafactuais"><h2></h2>
+<p><span class="slide-title">Introduzindo Contrafactuais</span></p>
+<p><span class="custom-subtitle2">Indagações Contrafactuais</span></p>
+<hr>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="panel-tabset">
+<ul id="tabset-9" class="panel-tabset-tabby">
+<li><a data-tabby-default="" href="#tabset-9-1">Output</a></li>
+<li><a href="#tabset-9-2">Código</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-9-1">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="index_files/figure-revealjs/dag%20contrafactuais%20img-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-9-2">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb30-2"><a href=""></a><span class="fu">library</span>(ggdag)</span>
+<span id="cb30-3"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb30-4"><a href=""></a></span>
+<span id="cb30-5"><a href=""></a><span class="co"># Construindo o Grafo</span></span>
+<span id="cb30-6"><a href=""></a>grafo <span class="ot">&lt;-</span> <span class="fu">dagitty</span>(<span class="st">"dag {</span></span>
+<span id="cb30-7"><a href=""></a><span class="st">T -&gt; C</span></span>
+<span id="cb30-8"><a href=""></a><span class="st">Z -&gt; C</span></span>
+<span id="cb30-9"><a href=""></a><span class="st">Z -&gt; T</span></span>
+<span id="cb30-10"><a href=""></a><span class="st">}"</span>)</span>
+<span id="cb30-11"><a href=""></a><span class="co"># Exibir a figura do grafo</span></span>
+<span id="cb30-12"><a href=""></a><span class="fu">ggdag</span>(grafo, <span class="at">layout =</span> <span class="st">"circle"</span>) <span class="sc">+</span></span>
+<span id="cb30-13"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb30-14"><a href=""></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb30-15"><a href=""></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb30-16"><a href=""></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb30-17"><a href=""></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="vertical-center">
+<div class="sanchez-font">
+<div class="purple-text">
+<p><strong>Pergunta</strong></p>
+</div>
+</div>
 <div class="sanchez-font">
 <div class="red-text">
 <p>Entre as pessoas tratadas e curadas, seria mais comum curar ou não curar caso elas não tivessem sido tratadas?</p>
@@ -1247,44 +1459,660 @@ ACE = E[C \mid do(T = 1)] - E[C \mid do(T = 0)]
 <hr>
 <div class="vertical-center">
 <div class="sanchez-font">
-<p>Contrafactual:</p>
-<div class="red-text">
-<p>Entre as pessoas tratadas e curadas, seria mais comum curar ou não curar caso elas não tivessem sido tratadas?</p>
+<div class="purple-text">
+<p><strong>Contrafactual</strong></p>
 </div>
-<p>Intervenção:</p>
-<div class="red-text">
+</div>
+<p>Entre as pessoas tratadas e curadas, seria mais comum curar ou não curar caso elas não tivessem sido tratadas?</p>
+<div class="sanchez-font">
+<div class="purple-text">
+<p><strong>Intervenção</strong></p>
+</div>
+</div>
 <p>Entre pessoas tratadas, seria mais comum curar ou não curar?</p>
 </div>
-</div>
-</div>
-</section><section id="hierarquia" class="slide level2" data-menu-title="Hierarquia de informação"><h2></h2>
-<p><span class="slide-title">Hierarquia da Informação</span></p>
+</section><section id="contrafactuais" class="slide level2" data-menu-title="Contrafactuais"><h2></h2>
+<p><span class="slide-title">Contrafactuais</span></p>
+<p><span class="custom-subtitle2">Ponderação pelo Inverso da Probabilidade de Tratamento (IPW)</span></p>
 <hr>
-<div class="red-text">
-<ol type="1">
-<li>Raciocínio Associativo</li>
-</ol>
+<div class="sanchez-font">
+<div class="purple-text">
+<p>O Problema Contrafactual</p>
 </div>
-<p><strong>Método:</strong> Redes Bayesianas</p>
-<p><strong>Pergunta que responde:</strong> <em>“O que eu sei sobre os dados?”</em></p>
-<p><strong>Objetivo:</strong> Identificar padrões e dependências estatísticas nos dados observados.</p>
-<div class="red-text">
+</div>
+<p>“Entre as pessoas tratadas e curadas, seria mais comum curar caso elas não tivessem sido tratadas?”</p>
+<p><strong>Tradução prática:</strong> Precisamos criar um mundo contrafactual onde:</p>
+<ul>
+<li><p>Pessoas tratadas possam ser comparadas com não-tratadas</p></li>
+<li><p>Mas sem o viés de seleção do tratamento</p></li>
+<li><p>Como se o tratamento fosse atribuído aleatoriamente</p></li>
+</ul>
+<aside class="notes"><p>IPW responde: “Como seria o mundo se todos tivessem a mesma probabilidade de receber o tratamento?” Cria uma pseudopopulação onde o tratamento é independente das covariáveis</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="ipw-mechanism" class="slide level2" data-menu-title="IPW"><h2></h2>
+<p><span class="slide-title">Ponderação pelo Inverso da Probabilidade de Tratamento</span></p>
+<p><span class="custom-subtitle2">Recriando um estudo randomizado</span></p>
+<hr>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="sanchez-font">
+<div class="purple-text">
+<p><strong>Fórmula dos Pesos</strong></p>
+</div>
+</div>
+<p>Para cada indivíduo <span class="math inline">\(i\)</span>:</p>
+<p><span class="math display">\[
+w_I
+\]</span></p>
+<p><strong>Intuição:</strong></p>
+<ul>
+<li><p>Peso alto: Indivíduo “improvável” em seu grupo</p></li>
+<li><p>Peso baixo: Indivíduo “esperado” em seu grupo</p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<caption>Exemplo de Cálculo de Pesos</caption>
+<thead><tr class="header">
+<th style="text-align: center;">Indivíduo</th>
+<th style="text-align: center;">Grupo</th>
+<th style="text-align: center;">PS</th>
+<th style="text-align: center;">Peso</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">Tratado</td>
+<td style="text-align: center;">0.9</td>
+<td style="text-align: center;">1.11</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">Tratado</td>
+<td style="text-align: center;">0.7</td>
+<td style="text-align: center;">1.43</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">Tratado</td>
+<td style="text-align: center;">0.8</td>
+<td style="text-align: center;">1.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">Controle</td>
+<td style="text-align: center;">0.2</td>
+<td style="text-align: center;">1.25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">Controle</td>
+<td style="text-align: center;">0.3</td>
+<td style="text-align: center;">1.43</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">Controle</td>
+<td style="text-align: center;">0.1</td>
+<td style="text-align: center;">1.11</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div></div>
+<aside class="notes"><p>FÓRMULA DOS PESOS: “A fórmula mostra que os pesos dependem do grupo do indivíduo:” “Para tratados: peso = 1 dividido pelo propensity score” “Para controles: peso = 1 dividido por (1 - propensity score)”</p>
+<p>INTUIÇÃO DOS PESOS: Peso alto: “Indivíduos com baixa probabilidade de estar no grupo onde estão” Peso baixo: “Indivíduos com alta probabilidade de estar no grupo onde estão”</p>
+<p>EXPLICAÇÃO DA TABELA: “Na tabela, vejam a relação entre PS e peso:” “PS alto (0.9) → peso baixo (1.11)” “PS baixo (0.7) → peso alto (1.43)” “O mesmo padrão vale para controles”</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section class="slide level2"><div class="fullscreen-colored">
+<p>Aplicação Final:<br>
+Rede de mosquitos e Risco de Malária</p>
+</div>
+</section><section id="bibliotecas2" class="slide level2" data-menu-title="Revisando Bibliotecas"><h2></h2>
+<p><span class="slide-title">Revisando Bibliotecas necessárias</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a><span class="fu">library</span>(ggdag)        <span class="co"># Construção de gráficos</span></span>
+<span id="cb31-2"><a href=""></a><span class="fu">library</span>(dagitty)      <span class="co"># Backdoor</span></span>
+<span id="cb31-3"><a href=""></a><span class="fu">library</span>(tidyverse)    <span class="co"># Manipulação de dados e visualização</span></span>
+<span id="cb31-4"><a href=""></a><span class="fu">library</span>(causalworkshop) <span class="co"># Dados simulados</span></span>
+<span id="cb31-5"><a href=""></a><span class="fu">library</span>(broom)        <span class="co"># Tidy de modelos</span></span>
+<span id="cb31-6"><a href=""></a><span class="fu">library</span>(propensity)   <span class="co"># Cálculo de pesos IPW</span></span>
+<span id="cb31-7"><a href=""></a><span class="fu">library</span>(halfmoon)     <span class="co"># Diagnóstico de balanceamento</span></span>
+<span id="cb31-8"><a href=""></a><span class="fu">library</span>(rsample)      <span class="co"># Bootstrap</span></span>
+<span id="cb31-9"><a href=""></a><span class="fu">library</span>(purrr)        <span class="co"># Iteração</span></span>
+<span id="cb31-10"><a href=""></a><span class="fu">library</span>(patchwork)    <span class="co"># Ajustar gráficos</span></span>
+<span id="cb31-11"><a href=""></a></span>
+<span id="cb31-12"><a href=""></a><span class="co">#install.packages("pak")</span></span>
+<span id="cb31-13"><a href=""></a><span class="co">#pak::pak("r-causal/causalworkshop")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="dados" class="slide level2" data-menu-title="Dados"><h2></h2>
+<p><span class="slide-title">Nosso dataset</span></p>
+<hr>
+<p>Dados simulados criados pelo [Prof.&nbsp;Dr.&nbsp;Andrews Heiss]{https://www.andrewheiss.com/}</p>
+<ul>
+<li><p><strong>Objetivo:</strong> Verificar se mosquiteiros reduzem o risco de malária</p></li>
+<li><p><strong>Amostra:</strong> 1.752 domicílios (dados observacionais)</p></li>
+<li><p><strong>Contexto:</strong> Estudo não-experimental - uso de mosquiteiros é por decisão própria das famílias</p></li>
+<li><p><strong>Variáveis disponíveis:</strong> Fatores ambientais, de saúde e características domiciliares</p></li>
+</ul></section><section id="dados2" class="slide level2" data-menu-title="Dados"><h2></h2>
+<p><span class="slide-title">Nosso dataset</span></p>
+<hr>
+<p><code>id</code>: Um identificador único para cada participante</p>
+<p><code>net e net_num</code>: Uma variável binária que indica se o participante usou mosquiteiro (1) ou não usou (0)</p>
+<p><code>malaria_risk</code>: Escala de risco de malária que varia de 0 a 100</p>
+<p><code>income</code>: Renda semanal, medida em dólares</p>
+<p><code>health</code>: Uma pontuação de saúde que varia de 0 a 100</p>
+<p><code>household</code>: Número de pessoas que moram na residência</p>
+<p><code>eligible</code>: Uma variável binária que indica se a residência é elegível para o programa de mosquiteiros gratuitos</p>
+<p><code>temperature</code>: A temperatura média durante a noite, em graus Celsius</p>
+<p><code>resistance</code>: Resistência a inseticidas dos mosquitos locais. Uma escala de 0 a 100, onde valores mais altos indicam maior resistência.</p>
+<aside class="notes"><p>Because we’re using simulated data, we’ll have direct access to an outcome variable that measures the likelihood of contracting malaria, something we wouldn’t likely have in real life. We’ll stick with this measure because it allows us to more closely inspect the actual effect size, whereas, in practice, we would need to approximate the effect size through another proxy such as regular malaria testing among the population.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="dados3" class="slide level2" data-menu-title="Dados"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a><span class="co"># Distribuição do risco de malária por uso de mosquiteiro</span></span>
+<span id="cb32-2"><a href=""></a>net_data <span class="sc">|&gt;</span></span>
+<span id="cb32-3"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(malaria_risk, <span class="at">fill =</span> net)) <span class="sc">+</span></span>
+<span id="cb32-4"><a href=""></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/ex1-1.png" width="960" class="r-stretch"></section><section id="dados4" class="slide level2" data-menu-title="Dados"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a><span class="co"># Diferença média simples</span></span>
+<span id="cb33-2"><a href=""></a>net_data <span class="sc">|&gt;</span></span>
+<span id="cb33-3"><a href=""></a>  <span class="fu">group_by</span>(net) <span class="sc">|&gt;</span> </span>
+<span id="cb33-4"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">malaria_risk =</span> <span class="fu">mean</span>(malaria_risk))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  net   malaria_risk
+  &lt;lgl&gt;        &lt;dbl&gt;
+1 FALSE         43.9
+2 TRUE          27.5</code></pre>
+</div>
+</div>
+<aside class="notes"><p>Diferença média ingênua: quem usa mosquiteiro tem risco 16.4 pontos menor. Pode ter viés por confundimento.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="dados5" class="slide level2" data-menu-title="Dados"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<p><span class="custom-subtitle2">O Grafo</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a>malaria_dag <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
+<span id="cb35-2"><a href=""></a>  malaria_risk <span class="sc">~</span> net <span class="sc">+</span> income <span class="sc">+</span> health <span class="sc">+</span> temperature <span class="sc">+</span> resistance,</span>
+<span id="cb35-3"><a href=""></a>  net <span class="sc">~</span> income <span class="sc">+</span> health <span class="sc">+</span> temperature <span class="sc">+</span> eligible <span class="sc">+</span> household,</span>
+<span id="cb35-4"><a href=""></a>  eligible <span class="sc">~</span> income <span class="sc">+</span> household,</span>
+<span id="cb35-5"><a href=""></a>  health <span class="sc">~</span> income,</span>
+<span id="cb35-6"><a href=""></a>  <span class="at">exposure =</span> <span class="st">"net"</span>,</span>
+<span id="cb35-7"><a href=""></a>  <span class="at">outcome =</span> <span class="st">"malaria_risk"</span>,</span>
+<span id="cb35-8"><a href=""></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb35-9"><a href=""></a>    <span class="at">malaria_risk =</span> <span class="st">"Malaria Risk"</span>,</span>
+<span id="cb35-10"><a href=""></a>    <span class="at">net =</span> <span class="st">"Net Use"</span>,</span>
+<span id="cb35-11"><a href=""></a>    <span class="at">income =</span> <span class="st">"Income"</span>,</span>
+<span id="cb35-12"><a href=""></a>    <span class="at">health =</span> <span class="st">"Health"</span>,</span>
+<span id="cb35-13"><a href=""></a>    <span class="at">temperature =</span> <span class="st">"Temperature"</span>,</span>
+<span id="cb35-14"><a href=""></a>    <span class="at">resistance =</span> <span class="st">"Resistance"</span>,</span>
+<span id="cb35-15"><a href=""></a>    <span class="at">eligible =</span> <span class="st">"Eligible"</span>,</span>
+<span id="cb35-16"><a href=""></a>    <span class="at">household =</span> <span class="st">"Household Size"</span></span>
+<span id="cb35-17"><a href=""></a>  )</span>
+<span id="cb35-18"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="grafo_malaria" class="slide level2" data-menu-title="Grafo do Exemplo de Malaria"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<p><span class="custom-subtitle2">O Grafo</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href=""></a><span class="fu">ggdag</span>(malaria_dag, <span class="at">text =</span> <span class="cn">FALSE</span>, <span class="at">use_labels =</span> <span class="st">"label"</span>) <span class="sc">+</span></span>
+<span id="cb36-2"><a href=""></a>  <span class="fu">theme_dag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/ex4-1.png" width="960" class="r-stretch"><aside class="notes"><ol type="1">
+<li>Determinantes do Risco de Malária (malaria_risk):</li>
+</ol>
+<ul>
+<li>Uso de mosquiteiro (net) → Reduz risco de malária</li>
+<li>Renda (income) → Afeta risco (pessoas mais ricas podem ter melhor acesso a cuidados)</li>
+<li>Saúde (health) → Pessoas mais saudáveis têm menor risco</li>
+<li>Temperatura (temperature) → Temperaturas mais altas podem aumentar transmissão</li>
+<li>Resistência (resistance) → Resistência a inseticidas pode aumentar risco</li>
+</ul>
 <ol start="2" type="1">
-<li>Raciocínio Intervencional</li>
+<li>Determinantes do Uso de Mosquiteiro (net):</li>
 </ol>
-</div>
-<p><strong>Método:</strong> Redes Causais Bayesianas</p>
-<p><strong>Pergunta que responde:</strong> <em>“O que acontece se eu intervir no sistema?”</em></p>
-<p><strong>Objetivo:</strong> Estimar os efeitos de intervenções (do tipo do(X = x)) no sistema.</p>
-<div class="red-text">
+<ul>
+<li>Renda (income) → Pessoas mais ricas podem comprar mosquiteiros</li>
+<li>Saúde (health) → Pessoas que se importam mais com saúde podem usar mais</li>
+<li>Temperatura (temperature) → Temperaturas mais altas podem aumentar uso</li>
+<li>Elegibilidade (eligible) → Programa gratuito aumenta uso</li>
+<li>Tamanho da família (household) → Famílias maiores podem ter diferentes padrões de uso</li>
+</ul>
 <ol start="3" type="1">
-<li>Raciocínio Contrafactual</li>
+<li>Determinantes da Elegibilidade (eligible):</li>
 </ol>
+<ul>
+<li>Renda (income) → Programas focam em pessoas de baixa renda</li>
+<li>Tamanho da família (household) → Famílias maiores podem ter prioridade</li>
+</ul>
+<ol start="4" type="1">
+<li>Determinante da Saúde (health):</li>
+</ol>
+<ul>
+<li>Renda (income) → Pessoas mais ricas têm melhor saúde</li>
+<li>Suposições de NÃO-Causalidade (ausência de setas)</li>
+<li>Relações que NÃO existem no modelo:</li>
+<li>Mosquiteiro → Renda (uso não afeta renda diretamente)</li>
+<li>Risco de malária → Saúde (não há feedback loop)</li>
+<li>Temperatura → Renda (temperatura não afeta renda diretamente)</li>
+<li>Resistência → Uso de mosquiteiro (resistência não afeta decisão de uso)</li>
+<li>Tamanho da família → Risco de malária (efeito apenas via uso de mosquiteiro)</li>
+</ul><style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="modelo_ingenuo_malaria" class="slide level2" data-menu-title="Avaliação do Exemplo de Malaria"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<p><span class="custom-subtitle2">Modelo Ingênuo</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href=""></a>modelo_naive <span class="ot">&lt;-</span> <span class="fu">lm</span>(malaria_risk <span class="sc">~</span> net, <span class="at">data =</span> net_data)</span>
+<span id="cb37-2"><a href=""></a><span class="fu">tidy</span>(modelo_naive)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)     43.9     0.377     116.  0       
+2 netTRUE        -16.4     0.741     -22.1 1.10e-95</code></pre>
 </div>
-<p><strong>Método:</strong> Modelos Causais Estruturais</p>
-<p><strong>Pergunta que responde:</strong> <em>“O que teria acontecido se…?”</em></p>
-<p><strong>Objetivo:</strong> Analisar cenários hipotéticos passados não observados.</p>
-</section><section id="materias" class="slide level2" data-menu-title="Materiais"><h2></h2>
+</div>
+</section><section id="avaliacao_grafo_malaria" class="slide level2" data-menu-title="Avaliação do Exemplo de Malaria"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<p><span class="custom-subtitle2">O Grafo: Avaliação</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href=""></a><span class="co"># Todos os conjuntos possíveis</span></span>
+<span id="cb39-2"><a href=""></a>adjustment_sets <span class="ot">&lt;-</span> dagitty<span class="sc">::</span><span class="fu">adjustmentSets</span>(</span>
+<span id="cb39-3"><a href=""></a>  malaria_dag,</span>
+<span id="cb39-4"><a href=""></a>  <span class="at">type =</span> <span class="st">"minimal"</span>,</span>
+<span id="cb39-5"><a href=""></a>  <span class="at">effect =</span> <span class="st">"total"</span></span>
+<span id="cb39-6"><a href=""></a>)</span>
+<span id="cb39-7"><a href=""></a><span class="fu">print</span>(adjustment_sets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{ health, income, temperature }</code></pre>
+</div>
+</div>
+<aside class="notes"><p>Conjunto mínimo de ajuste: {health, income, temperature}. Suficiente para bloquear todos os caminhos de confundimento.</p>
+<p>10 caminhos totais: 1 causal direto + 9 de confundimento. 2 já fechados naturalmente (colidores).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="avaliacao_grafo_malaria2" class="slide level2" data-menu-title="Avaliação do Exemplo de Malaria"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<p><span class="custom-subtitle2">O Grafo: Avaliação</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href=""></a><span class="co"># Testar d-separação</span></span>
+<span id="cb41-2"><a href=""></a>dsep_test <span class="ot">&lt;-</span> dagitty<span class="sc">::</span><span class="fu">dseparated</span>(</span>
+<span id="cb41-3"><a href=""></a>  malaria_dag,</span>
+<span id="cb41-4"><a href=""></a>  <span class="st">"net"</span>, </span>
+<span id="cb41-5"><a href=""></a>  <span class="st">"malaria_risk"</span>,</span>
+<span id="cb41-6"><a href=""></a>  <span class="fu">c</span>(<span class="st">"income"</span>, <span class="st">"health"</span>, <span class="st">"temperature"</span>)</span>
+<span id="cb41-7"><a href=""></a>)</span>
+<span id="cb41-8"><a href=""></a></span>
+<span id="cb41-9"><a href=""></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"D-separated:"</span>, dsep_test))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "D-separated: FALSE"</code></pre>
+</div>
+</div>
+</section><section id="avaliacao_grafo_malaria3" class="slide level2" data-menu-title="Avaliação do Exemplo de Malaria"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<p><span class="custom-subtitle2">O Grafo: Avaliação</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href=""></a>paths <span class="ot">&lt;-</span> dagitty<span class="sc">::</span><span class="fu">paths</span>(</span>
+<span id="cb43-2"><a href=""></a>  malaria_dag,</span>
+<span id="cb43-3"><a href=""></a>  <span class="at">from =</span> <span class="st">"net"</span>,</span>
+<span id="cb43-4"><a href=""></a>  <span class="at">to =</span> <span class="st">"malaria_risk"</span></span>
+<span id="cb43-5"><a href=""></a>)</span>
+<span id="cb43-6"><a href=""></a></span>
+<span id="cb43-7"><a href=""></a><span class="fu">print</span>(paths)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$paths
+ [1] "net -&gt; malaria_risk"                                             
+ [2] "net &lt;- eligible &lt;- income -&gt; health -&gt; malaria_risk"             
+ [3] "net &lt;- eligible &lt;- income -&gt; malaria_risk"                       
+ [4] "net &lt;- health -&gt; malaria_risk"                                   
+ [5] "net &lt;- health &lt;- income -&gt; malaria_risk"                         
+ [6] "net &lt;- household -&gt; eligible &lt;- income -&gt; health -&gt; malaria_risk"
+ [7] "net &lt;- household -&gt; eligible &lt;- income -&gt; malaria_risk"          
+ [8] "net &lt;- income -&gt; health -&gt; malaria_risk"                         
+ [9] "net &lt;- income -&gt; malaria_risk"                                   
+[10] "net &lt;- temperature -&gt; malaria_risk"                              
+
+$open
+ [1]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE</code></pre>
+</div>
+</div>
+</section><section id="avaliacao_grafo_malaria4" class="slide level2" data-menu-title="Avaliação do Exemplo de Malaria"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<p><span class="custom-subtitle2">O Grafo após ajuste</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href=""></a><span class="co"># ANTES do ajuste</span></span>
+<span id="cb45-2"><a href=""></a>antes <span class="ot">&lt;-</span> <span class="fu">ggdag_paths</span>(malaria_dag,</span>
+<span id="cb45-3"><a href=""></a>                    <span class="at">from =</span> <span class="st">"net"</span>, </span>
+<span id="cb45-4"><a href=""></a>                    <span class="at">to =</span> <span class="st">"malaria_risk"</span>,</span>
+<span id="cb45-5"><a href=""></a>                    <span class="at">shadow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb45-6"><a href=""></a>                    <span class="at">text =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb45-7"><a href=""></a>  <span class="fu">theme_dag</span>() <span class="sc">+</span></span>
+<span id="cb45-8"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"ANTES: Todos os caminhos abertos"</span>)</span>
+<span id="cb45-9"><a href=""></a></span>
+<span id="cb45-10"><a href=""></a><span class="co"># DEPOIS do ajuste  </span></span>
+<span id="cb45-11"><a href=""></a>depois <span class="ot">&lt;-</span> <span class="fu">ggdag_paths</span>(malaria_dag,</span>
+<span id="cb45-12"><a href=""></a>                     <span class="at">from =</span> <span class="st">"net"</span>, </span>
+<span id="cb45-13"><a href=""></a>                     <span class="at">to =</span> <span class="st">"malaria_risk"</span>,</span>
+<span id="cb45-14"><a href=""></a>                     <span class="at">shadow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb45-15"><a href=""></a>                     <span class="at">text =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb45-16"><a href=""></a>                     <span class="at">adjust_for =</span> <span class="fu">c</span>(<span class="st">"health"</span>, <span class="st">"income"</span>, <span class="st">"temperature"</span>)) <span class="sc">+</span></span>
+<span id="cb45-17"><a href=""></a>  <span class="fu">theme_dag</span>() <span class="sc">+</span></span>
+<span id="cb45-18"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"DEPOIS: Apenas caminho causal aberto"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="avaliacao_grafo_malaria5" class="slide level2" data-menu-title="Avaliação do Exemplo de Malaria"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<p><span class="custom-subtitle2">Caminhos abertos antes do ajuste</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href=""></a>antes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/ex9-1.png" width="960" class="r-stretch"></section><section id="avaliacao_grafo_malaria6" class="slide level2" data-menu-title="Avaliação do Exemplo de Malaria"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<p><span class="custom-subtitle2">Caminhos abertos depois do ajuste</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href=""></a>depois</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/ex10-1.png" width="960" class="r-stretch"></section><section id="avaliacao_grafo_malaria7" class="slide level2" data-menu-title="Avaliação do Exemplo de Malaria"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<p><span class="custom-subtitle2">Propensity Score</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href=""></a>propensity_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb48-2"><a href=""></a>  net <span class="sc">~</span> income <span class="sc">+</span> health <span class="sc">+</span> temperature,</span>
+<span id="cb48-3"><a href=""></a>  <span class="at">data =</span> net_data,</span>
+<span id="cb48-4"><a href=""></a>  <span class="at">family =</span> <span class="fu">binomial</span>()</span>
+<span id="cb48-5"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="propensity_score" class="slide level2" data-menu-title="Propensity Score"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<span class="custom-subtitle2">Propensity Score</span>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href=""></a><span class="co"># Cálculo dos pesos IPW (ATE)</span></span>
+<span id="cb49-2"><a href=""></a>net_data_wts <span class="ot">&lt;-</span> propensity_model <span class="sc">|&gt;</span></span>
+<span id="cb49-3"><a href=""></a>  <span class="fu">augment</span>(<span class="at">data =</span> net_data, <span class="at">type.predict =</span> <span class="st">"response"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb49-4"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">wts =</span> <span class="fu">wt_ate</span>(.fitted, net))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes"><p>Modelo de propensity score: prediz probabilidade de usar mosquiteiro baseado nos confundidores. Pesos IPW criam pseudo-população balanceada.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="diagnostico_balanceamento" class="slide level2" data-menu-title="Diagnóstico do Balanceamento"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<p><span class="custom-subtitle2">Balanceamento do Propensity Score</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href=""></a><span class="co"># Balanceamento do propensity score</span></span>
+<span id="cb50-2"><a href=""></a><span class="fu">ggplot</span>(net_data_wts, <span class="fu">aes</span>(.fitted)) <span class="sc">+</span></span>
+<span id="cb50-3"><a href=""></a>  <span class="fu">geom_mirror_histogram</span>(<span class="fu">aes</span>(<span class="at">fill =</span> net), <span class="at">bins =</span> <span class="dv">50</span>) <span class="sc">+</span></span>
+<span id="cb50-4"><a href=""></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> abs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/ex13-1.png" width="960" class="r-stretch"></section><section id="balanceamento_ponderado" class="slide level2" data-menu-title="Balanceamento Ponderado"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<p><span class="custom-subtitle2">Balanceamento Após Ponderação</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href=""></a><span class="co"># Balanceamento ponderado</span></span>
+<span id="cb51-2"><a href=""></a><span class="fu">ggplot</span>(net_data_wts, <span class="fu">aes</span>(.fitted)) <span class="sc">+</span></span>
+<span id="cb51-3"><a href=""></a>  <span class="fu">geom_mirror_histogram</span>(<span class="fu">aes</span>(<span class="at">group =</span> net), <span class="at">bins =</span> <span class="dv">50</span>) <span class="sc">+</span></span>
+<span id="cb51-4"><a href=""></a>  <span class="fu">geom_mirror_histogram</span>(</span>
+<span id="cb51-5"><a href=""></a>    <span class="fu">aes</span>(<span class="at">fill =</span> net, <span class="at">weight =</span> wts),</span>
+<span id="cb51-6"><a href=""></a>    <span class="at">bins =</span> <span class="dv">50</span>, <span class="at">alpha =</span> .<span class="dv">5</span></span>
+<span id="cb51-7"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb51-8"><a href=""></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> abs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/ex14-1.png" width="960" class="r-stretch"><aside class="notes"><p>Após ponderação IPW: distribuições ficam muito similares entre grupos, indicando bom balanceamento.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="smd_plot" class="slide level2" data-menu-title="Diferenças Padronizadas"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<p><span class="custom-subtitle2">Love Plot - Diferenças Padronizadas</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href=""></a><span class="co"># Diferenças padronizadas de médias (SMD)</span></span>
+<span id="cb52-2"><a href=""></a>plot_df <span class="ot">&lt;-</span> <span class="fu">tidy_smd</span>(</span>
+<span id="cb52-3"><a href=""></a>  net_data_wts,</span>
+<span id="cb52-4"><a href=""></a>  <span class="fu">c</span>(income, health, temperature),</span>
+<span id="cb52-5"><a href=""></a>  <span class="at">.group =</span> net,</span>
+<span id="cb52-6"><a href=""></a>  <span class="at">.wts =</span> wts</span>
+<span id="cb52-7"><a href=""></a>)</span>
+<span id="cb52-8"><a href=""></a></span>
+<span id="cb52-9"><a href=""></a><span class="fu">ggplot</span>(plot_df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">abs</span>(smd), <span class="at">y =</span> variable, <span class="at">group =</span> method, <span class="at">color =</span> method)) <span class="sc">+</span></span>
+<span id="cb52-10"><a href=""></a>  <span class="fu">geom_love</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/ex15-1.png" width="960" class="r-stretch"><aside class="notes"><p>Love plot: SMD &lt; 0.1 após ponderação indica bom balanceamento. IPW reduziu diferenças entre grupos.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="distribuicao_pesos" class="slide level2" data-menu-title="Distribuição dos Pesos"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<p><span class="custom-subtitle2">Distribuição dos Pesos IPW</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href=""></a><span class="co"># Distribuição dos pesos</span></span>
+<span id="cb53-2"><a href=""></a>net_data_wts <span class="sc">|&gt;</span></span>
+<span id="cb53-3"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(wts)) <span class="sc">+</span></span>
+<span id="cb53-4"><a href=""></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">"#CC79A7"</span>, <span class="at">color =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/ex16-1.png" width="960" class="r-stretch"><aside class="notes"><p>Distribuição dos pesos: sem valores extremos que possam destabilizar as estimativas.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="modelo_ipw" class="slide level2" data-menu-title="Modelo IPW"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<p><span class="custom-subtitle2">Estimativa IPW do Efeito Causal</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href=""></a><span class="co"># Modelo ponderado</span></span>
+<span id="cb54-2"><a href=""></a>modelo_ipw <span class="ot">&lt;-</span> <span class="fu">lm</span>(malaria_risk <span class="sc">~</span> net, <span class="at">data =</span> net_data_wts, <span class="at">weights =</span> wts)</span>
+<span id="cb54-3"><a href=""></a><span class="fu">tidy</span>(modelo_ipw, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 7
+  term        estimate std.error statistic  p.value conf.low conf.high
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)     42.7     0.442      96.7 0            41.9      43.6
+2 netTRUE        -12.5     0.624     -20.1 5.50e-81    -13.8     -11.3</code></pre>
+</div>
+</div>
+<aside class="notes"><p>Efeito causal ajustado: -12.5 pontos de risco. Redução de 29% comparado ao modelo ingênuo (-16.4).</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="bootstrap_funcao" class="slide level2" data-menu-title="Bootstrap IPW"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<p><span class="custom-subtitle2">Função Bootstrap para Intervalo de Confiança</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href=""></a><span class="co"># Função para bootstrap</span></span>
+<span id="cb56-2"><a href=""></a>fit_ipw <span class="ot">&lt;-</span> <span class="cf">function</span>(.split, ...) {</span>
+<span id="cb56-3"><a href=""></a>  .df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(.split)</span>
+<span id="cb56-4"><a href=""></a>  </span>
+<span id="cb56-5"><a href=""></a>  <span class="co"># Re-estimar tudo no bootstrap</span></span>
+<span id="cb56-6"><a href=""></a>  propensity_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb56-7"><a href=""></a>    net <span class="sc">~</span> income <span class="sc">+</span> health <span class="sc">+</span> temperature,</span>
+<span id="cb56-8"><a href=""></a>    <span class="at">data =</span> .df,</span>
+<span id="cb56-9"><a href=""></a>    <span class="at">family =</span> <span class="fu">binomial</span>()</span>
+<span id="cb56-10"><a href=""></a>  )</span>
+<span id="cb56-11"><a href=""></a>  </span>
+<span id="cb56-12"><a href=""></a>  .df <span class="ot">&lt;-</span> propensity_model <span class="sc">|&gt;</span></span>
+<span id="cb56-13"><a href=""></a>    <span class="fu">augment</span>(<span class="at">type.predict =</span> <span class="st">"response"</span>, <span class="at">data =</span> .df) <span class="sc">|&gt;</span></span>
+<span id="cb56-14"><a href=""></a>    <span class="fu">mutate</span>(<span class="at">wts =</span> <span class="fu">wt_ate</span>(.fitted, net))</span>
+<span id="cb56-15"><a href=""></a>  </span>
+<span id="cb56-16"><a href=""></a>  <span class="fu">lm</span>(malaria_risk <span class="sc">~</span> net, <span class="at">data =</span> .df, <span class="at">weights =</span> wts) <span class="sc">|&gt;</span></span>
+<span id="cb56-17"><a href=""></a>    <span class="fu">tidy</span>()</span>
+<span id="cb56-18"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes"><p>Bootstrap corretamente re-estima propensity scores em cada amostra, incorporando incerteza da estimação dos pesos.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="aplicar_bootstrap" class="slide level2" data-menu-title="Aplicar Bootstrap"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<p><span class="custom-subtitle2">Aplicando Bootstrap</span></p>
+<hr>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href=""></a><span class="co"># Aplicar bootstrap</span></span>
+<span id="cb57-2"><a href=""></a>bootstrapped_net_data <span class="ot">&lt;-</span> <span class="fu">bootstraps</span>(net_data, <span class="at">times =</span> <span class="dv">1000</span>, <span class="at">apparent =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb57-3"><a href=""></a></span>
+<span id="cb57-4"><a href=""></a>ipw_results <span class="ot">&lt;-</span> bootstrapped_net_data <span class="sc">|&gt;</span></span>
+<span id="cb57-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">boot_fits =</span> <span class="fu">map</span>(splits, fit_ipw))</span>
+<span id="cb57-6"><a href=""></a></span>
+<span id="cb57-7"><a href=""></a><span class="co"># Intervalos de confiança bootstrap</span></span>
+<span id="cb57-8"><a href=""></a>boot_estimate <span class="ot">&lt;-</span> ipw_results <span class="sc">|&gt;</span></span>
+<span id="cb57-9"><a href=""></a>  <span class="fu">int_t</span>(boot_fits) <span class="sc">|&gt;</span></span>
+<span id="cb57-10"><a href=""></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"netTRUE"</span>)</span>
+<span id="cb57-11"><a href=""></a></span>
+<span id="cb57-12"><a href=""></a><span class="fu">print</span>(boot_estimate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 6
+  term    .lower .estimate .upper .alpha .method  
+  &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;    
+1 netTRUE  -13.4     -12.6  -11.7   0.05 student-t</code></pre>
+</div>
+</div>
+<aside class="notes"><p>1000 amostras bootstrap criam distribuição empírica do efeito causal, incorporando toda a incerteza.</p>
+<p>IC bootstrap corrigido: [-13.4, -11.7]. Mais conservador que IC ingênuo devido à incerteza dos pesos.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside></section><section id="conclusao_exemplo" class="slide level2" data-menu-title="Conclusão do Exemplo"><h2></h2>
+<p><span class="slide-title">Rede de mosquitos e Risco de Malária</span></p>
+<p><span class="custom-subtitle2">Conclusão</span></p>
+<hr>
+<ul>
+<li><p>Conclusão: Uso de mosquiteiros reduz significativamente o risco de malária</p></li>
+<li><p>ATE estimado e Intervalo de confiança: -12,5[-13.4 , -11.7 ] com 95% de confiança</p></li>
+<li><p>Viés de confundimento: Modelo ingênuo superestimou o efeito em ~30%</p></li>
+</ul></section><section class="slide level2"></section><section id="materias" class="slide level2" data-menu-title="Materiais"><h2></h2>
 <p><span class="slide-title">Materiais</span></p>
 <hr>
 <div class="columns">
@@ -1302,6 +2130,9 @@ ACE = E[C \mid do(T = 1)] - E[C \mid do(T = 0)]
 <hr>
 <p><strong><em>STERN, R. B.</em></strong> <em>Causality Book</em>. [S.l.]: GitHub, 2024. Disponível em: <a href="https://github.com/rbstern/causality_book/blob/master/book.pdf" class="uri">https://github.com/rbstern/causality_book/blob/master/book.pdf</a>. Acesso em: 25 maio 2025.</p>
 <p><strong><em>PEARL, Judea; GLYMOUR, Madelyn; JEWELL, Nicholas P.</em></strong> <em>Causal inference in statistics: a primer</em>. Chichester: Wiley, 2016.</p>
+<p><strong>FINK, G. et al.&nbsp;Mosquito net use in early childhood and survival to adulthood in Tanzania.</strong>New England Journal of Medicine, 2022.</p>
+<p><strong>LENGELER, C. Insecticide-treated bed nets and curtains for preventing malaria.</strong> Cochrane Database of Systematic Reviews, 2004.</p>
+<p><strong>PRYCE, J.; RICHARDSON, M.; LENGELER, C. Insecticide-treated nets for preventing malaria.</strong> Cochrane Database of Systematic Reviews, 2018.</p>
 
 </section>
 </div>
