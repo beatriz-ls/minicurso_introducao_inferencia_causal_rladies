@@ -201,10 +201,10 @@
 <div class="column" style="width:50%;">
 <p><span class="custom-subtitle3">Beatriz Lima Silveira</span><br></p>
 </div><div class="column" style="width:50%;">
-<p><span class="custom-subtitle3">Universidade Federal do Espiríto Santo</span> <br><span class="custom-subtitle3">Laboratório de Data Science (DaSLab)</span> <br><span class="custom-subtitle3">R-Ladies + Vitoria</span></p>
+<p><span class="custom-subtitle3">Universidade Federal do Espiríto Santo</span> <br><span class="custom-subtitle3">Laboratório de Data Science (DaSLab)</span> <br><span class="custom-subtitle3">R-Ladies + Vitória</span></p>
 </div></div>
-<div style="text-align: center; margin-top: 20px;">
-<p><span class="custom-subtitle3">Slides em: <a href="https://github.com/beatriz-ls/minicurso_introducao_inferencia_causal_rladies" class="uri">https://github.com/beatriz-ls/minicurso_introducao_inferencia_causal_rladies</a></span></p>
+<div class="title-footer">
+<p>Slides disponíveis em <a href="https://github.com/beatriz-ls/minicurso_introducao_inferencia_causal_rladies">GitHub</a></p>
 </div>
 <p><br></p>
 </section><section id="section" class="slide level2 title" data-background-image="img/profile.jpeg" data-background-size="35%" data-background-position="left 10% center" data-background-color="#FAF0F2"><h2></h2>
@@ -451,16 +451,16 @@
 <pre><code># A tibble: 1,000 × 3
    gravidade_doenca recebeu_tratamento resultado_saude
               &lt;int&gt;              &lt;int&gt;           &lt;dbl&gt;
- 1                0                  0           0.920
- 2                1                  1           3.15 
- 3                1                  1           0.546
- 4                0                  0          -1.41 
- 5                0                  1          -0.286
- 6                1                  1           1.51 
- 7                1                  0           0.751
- 8                1                  1           0.296
- 9                0                  0          -0.764
-10                1                  0           1.41 
+ 1                1                  1           0.160
+ 2                1                  1           1.04 
+ 3                0                  1          -1.72 
+ 4                0                  0           1.86 
+ 5                0                  1          -1.76 
+ 6                1                  0           0.934
+ 7                0                  0           1.34 
+ 8                1                  1           1.20 
+ 9                1                  1           1.71 
+10                0                  0          -0.570
 # ℹ 990 more rows</code></pre>
 </div>
 </div>
@@ -472,7 +472,7 @@
 <span id="cb4-2"><a href=""></a>model1<span class="sc">$</span>coef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       (Intercept) recebeu_tratamento 
-         0.2776988          0.5383836 </code></pre>
+         0.3334865          0.3748814 </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -480,7 +480,7 @@
 <span id="cb6-2"><a href=""></a>model2<span class="sc">$</span>coef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       (Intercept) recebeu_tratamento   gravidade_doenca 
-        0.02547917         0.04698668         0.96473992 </code></pre>
+        0.08023054        -0.06034166         0.94575280 </code></pre>
 </div>
 </div>
 <div title="Conclusão">
@@ -510,8 +510,8 @@
 <pre><code># A tibble: 2 × 2
   recebeu_tratamento media_resultado
                &lt;int&gt;           &lt;dbl&gt;
-1                  0           0.278
-2                  1           0.816</code></pre>
+1                  0           0.333
+2                  1           0.708</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -528,7 +528,7 @@
 <pre><code># A tibble: 1 × 1
   diferenca_media
             &lt;dbl&gt;
-1           0.538</code></pre>
+1           0.375</code></pre>
 </div>
 </div>
 </section><section id="escada" class="slide level2" data-menu-title="Escada da Causalidade"><h2></h2>
@@ -2089,7 +2089,7 @@ $open
 <pre><code># A tibble: 1 × 6
   term    .lower .estimate .upper .alpha .method  
   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;    
-1 netTRUE  -13.4     -12.6  -11.7   0.05 student-t</code></pre>
+1 netTRUE  -13.3     -12.6  -11.7   0.05 student-t</code></pre>
 </div>
 </div>
 <aside class="notes"><p>1000 amostras bootstrap criam distribuição empírica do efeito causal, incorporando toda a incerteza.</p>

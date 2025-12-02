@@ -23,13 +23,13 @@ format:
 :::
 
 ::: {.column width="50%"}
-[Universidade Federal do Espiríto Santo]{.custom-subtitle3} <br> [Laboratório de Data Science (DaSLab)]{.custom-subtitle3} <br> [R-Ladies + Vitoria]{.custom-subtitle3}
+[Universidade Federal do Espiríto Santo]{.custom-subtitle3} <br> [Laboratório de Data Science (DaSLab)]{.custom-subtitle3} <br> [R-Ladies + Vitória]{.custom-subtitle3}
 :::
 :::::
 
-<div style="text-align: center; margin-top: 20px;">
-[Slides em: <https://github.com/beatriz-ls/minicurso_introducao_inferencia_causal_rladies>]{.custom-subtitle3}
-</div>
+::: title-footer
+Slides disponíveis em [GitHub](https://github.com/beatriz-ls/minicurso_introducao_inferencia_causal_rladies)
+:::
 
 <br>
 
